@@ -28,7 +28,7 @@
    <property name="click-mock" value="click-mock-${version}"/>
 
    <property name="jar.cayenne" value="cayenne-server-${cayenne.version}.jar"/>
-   <property name="jar.checkstyle" value="checkstyle-all-${checkstyle.version}.jar"/>
+   <property name="jar.checkstyle" value="checkstyle-${checkstyle.version}-all.jar"/>
    <property name="jar.codec" value="commons-codec-${commons-codec.version}.jar"/>
    <property name="jar.collections" value="commons-collections-${commons-collections.version}.jar"/>
    <property name="jar.freemarker" value="freemarker-${freemarker.version}.jar"/>
