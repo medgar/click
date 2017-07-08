@@ -917,6 +917,40 @@ public abstract class AbstractControl implements Control {
     // Protected Methods ------------------------------------------------------
 
     /**
+     * Return true if the new value exists in the current value.
+     *
+     * @param newValue the value of the class attribute to check
+     * @param currentValue the current value to test
+     * @return true if the classToFind exists in the current value set
+     */
+    protected boolean classExists(String newValue, String currentValue) {
+        //To find if a class eg. "myclass" exists, check the following:
+
+        //1. Check if "myclass" is the only value in the string
+        //   -> "myclass"
+        if (newValue.length() == currentValue.length()
+            && currentValue.indexOf(newValue) == 0) {
+            return true;
+        }
+
+        //2. Check if "myclass" exists at beginning of string
+        //   -> "myclass otherclass"
+        if (currentValue.startsWith(newValue + " ")) {
+            return true;
+        }
+
+        //3. Check if "myclass" exists in middle of string
+        //   -> "anotherclass myclass otherclass"
+        if (currentValue.indexOf(" " + newValue + " ") >= 0) {
+            return true;
+        }
+
+        //4. Check if "myclass" exists at end of string
+        //   -> "anotherclass myclass"
+        return (currentValue.endsWith(" " + newValue));
+    }
+
+    /**
      * Dispatch an action event to the {@link org.apache.click.ActionEventDispatcher}.
      *
      * @see org.apache.click.ActionEventDispatcher#dispatchActionEvent(org.apache.click.Control, org.apache.click.ActionListener)
@@ -1082,39 +1116,5 @@ public abstract class AbstractControl implements Control {
         }
 
         return styleClassesSet;
-    }
-
-    /**
-     * Return true if the new value exists in the current value.
-     *
-     * @param newValue the value of the class attribute to check
-     * @param currentValue the current value to test
-     * @return true if the classToFind exists in the current value set
-     */
-    private boolean classExists(String newValue, String currentValue) {
-        //To find if a class eg. "myclass" exists, check the following:
-
-        //1. Check if "myclass" is the only value in the string
-        //   -> "myclass"
-        if (newValue.length() == currentValue.length()
-            && currentValue.indexOf(newValue) == 0) {
-            return true;
-        }
-
-        //2. Check if "myclass" exists at beginning of string
-        //   -> "myclass otherclass"
-        if (currentValue.startsWith(newValue + " ")) {
-            return true;
-        }
-
-        //3. Check if "myclass" exists in middle of string
-        //   -> "anotherclass myclass otherclass"
-        if (currentValue.indexOf(" " + newValue + " ") >= 0) {
-            return true;
-        }
-
-        //4. Check if "myclass" exists at end of string
-        //   -> "anotherclass myclass"
-        return (currentValue.endsWith(" " + newValue));
     }
 }

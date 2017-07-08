@@ -623,6 +623,21 @@ public class Form extends AbstractContainer implements Stateful {
      */
     protected int defaultFieldSize;
 
+    /**
+     * The default button CSS style class.
+     */
+    protected String defaultButtonStyleClass;
+
+    /**
+     * The default field CSS style class.
+     */
+    protected String defaultFieldStyleClass;
+
+    /**
+     * The default label CSS style class.
+     */
+    protected String defaultLabelStyleClass;
+
     /** The errors block align, default value is <tt>"left"</tt>. */
     protected String errorsAlign = ALIGN_LEFT;
 
@@ -779,6 +794,21 @@ public class Form extends AbstractContainer implements Stateful {
 
                 } else if (field instanceof TextArea) {
                     ((TextArea) field).setCols(getDefaultFieldSize());
+                }
+            }
+
+            // Set the default button, field and label style classes
+            if (field instanceof Button) {
+                if (getDefaultButtonStyleClass() != null) {
+                    field.addStyleClass(getDefaultButtonStyleClass());
+                }
+
+            } else {
+                if (getDefaultFieldStyleClass() != null) {
+                    field.addStyleClass(getDefaultFieldStyleClass());
+                }
+                if (getDefaultLabelStyleClass() != null) {
+                    field.setLabelStyleClass(getDefaultLabelStyleClass());
                 }
             }
         }
@@ -971,6 +1001,21 @@ public class Form extends AbstractContainer implements Stateful {
 
                 } else if (field instanceof TextArea) {
                     ((TextArea) field).setCols(getDefaultFieldSize());
+                }
+            }
+
+            // Set the default button, field and label style classes
+            if (field instanceof Button) {
+                if (getDefaultButtonStyleClass() != null) {
+                    field.addStyleClass(getDefaultButtonStyleClass());
+                }
+
+            } else {
+                if (getDefaultFieldStyleClass() != null) {
+                    field.addStyleClass(getDefaultFieldStyleClass());
+                }
+                if (getDefaultLabelStyleClass() != null) {
+                    field.setLabelStyleClass(getDefaultLabelStyleClass());
                 }
             }
         }
@@ -1480,6 +1525,29 @@ public class Form extends AbstractContainer implements Stateful {
     }
 
     /**
+     * Return the default form button CSS style class. If this value is defined
+     * then the form will add the default CSS style class to the button.
+     *
+     * @return the default form button CSS style class
+     */
+    public String getDefaultButtonStyleClass() {
+        return defaultButtonStyleClass;
+    }
+
+    /**
+     * Set the default form button CSS style class.
+     * <p/>
+     * If this value is defined then the form will add the default CSS style
+     * class to the button. This value will not be applied to non Button controls,
+     * please use the separate <code>defaultFieldStyleClass</code>.
+     *
+     * @param styleClass the default form field CSS style class
+     */
+    public void setDefaultButtonStyleClass(String styleClass) {
+        this.defaultButtonStyleClass = styleClass;
+    }
+
+    /**
      * Return the form default field size. If the form default field size is
      * greater than 0, when fields are added to the form the field's size will
      * be set to the default value.
@@ -1499,6 +1567,52 @@ public class Form extends AbstractContainer implements Stateful {
      */
     public void setDefaultFieldSize(int size) {
         this.defaultFieldSize = size;
+    }
+
+    /**
+     * Return the default form field CSS style class. If this value is defined
+     * then the form will add the default CSS style class to the field.
+     *
+     * @return the default form field CSS style class
+     */
+    public String getDefaultFieldStyleClass() {
+        return defaultFieldStyleClass;
+    }
+
+    /**
+     * Set the default form field CSS style class.
+     * <p/>
+     * If this value is defined then the form will add the default CSS style
+     * class to the field. This value will not be applied to Button controls,
+     * please use the separate <code>defaultButtonStyleClass</code>.
+     *
+     * @param styleClass the default form field CSS style class
+     */
+    public void setDefaultFieldStyleClass(String styleClass) {
+        this.defaultFieldStyleClass = styleClass;
+    }
+
+    /**
+     * Return the default form field label CSS style class. If this value is
+     * defined then the form will add the default CSS style class to the field
+     * label.
+     *
+     * @return the default form field CSS style class
+     */
+    public String getDefaultLabelStyleClass() {
+        return defaultLabelStyleClass;
+    }
+
+    /**
+     * Set the default form field label CSS style class.
+     * <p/>
+     * If this value is defined then the form will add the default CSS style
+     * class to the field label.
+     *
+     * @param styleClass the default form field label CSS style class
+     */
+    public void setDefaultLabelStyleClass(String styleClass) {
+        this.defaultLabelStyleClass = styleClass;
     }
 
     /**
@@ -2543,7 +2657,11 @@ public class Form extends AbstractContainer implements Stateful {
                 } else if (control instanceof Label) {
                     Label label = (Label) control;
                     buffer.append("<td align=\"");
-                    buffer.append(getLabelAlign());
+                    if (label.getTextAlign() != null) {
+                        buffer.append(label.getTextAlign());
+                    } else {
+                        buffer.append(getLabelAlign());
+                    }
                     buffer.append("\" class=\"fields");
 
                     String cellStyleClass = label.getParentStyleClassHint();
@@ -2615,7 +2733,9 @@ public class Form extends AbstractContainer implements Stateful {
 
                     // Only render a label if the fieldId and fieldLabel is set
                     if (fieldId != null && fieldLabel != null) {
-                        if (field.isRequired()) {
+                        if (field.isRequired()
+                            && !field.isReadonly()
+                            && !field.isDisabled()) {
                             buffer.append(getMessage("label-required-prefix"));
                         } else {
                             buffer.append(getMessage("label-not-required-prefix"));
@@ -2640,7 +2760,9 @@ public class Form extends AbstractContainer implements Stateful {
                         buffer.closeTag();
                         buffer.append(fieldLabel);
                         buffer.elementEnd("label");
-                        if (field.isRequired()) {
+                        if (field.isRequired()
+                            && !field.isReadonly()
+                            && !field.isDisabled()) {
                             buffer.append(getMessage("label-required-suffix"));
                         } else {
                             buffer.append(getMessage("label-not-required-suffix"));
@@ -2839,7 +2961,18 @@ public class Form extends AbstractContainer implements Stateful {
         buffer.elementEnd(getTag());
         buffer.append("\n");
 
-        renderFocusJavaScript(buffer, formFields);
+        // Render field focus JavaScript if an older IE browser or FF browsers
+        String userAgent = getContext().getRequest().getHeader("User-Agent");
+        if (userAgent != null
+            && (userAgent.contains("MSIE 6.0")
+                || userAgent.contains("MSIE 7.0")
+                || userAgent.contains("MSIE 8.0")
+                || userAgent.contains("MSIE 9.0")
+                || userAgent.contains("Firefox/3")
+                || userAgent.contains("Firefox/4"))) {
+
+            renderFocusJavaScript(buffer, formFields);
+        }
 
         renderValidationJavaScript(buffer, formFields);
     }
@@ -3095,16 +3228,6 @@ public class Form extends AbstractContainer implements Stateful {
         }
 
         /**
-         * Create a field with the given name and value.
-         *
-         * @param name the field name
-         * @param value the value of the field
-         */
-        public NonProcessedHiddenField(String name, Object value) {
-            super(name, value);
-        }
-
-        /**
          * This method is overridden to not change the field name once it is set.
          *
          * @param name the name of the field
@@ -3126,49 +3249,4 @@ public class Form extends AbstractContainer implements Stateful {
         }
     }
 
-    /**
-     * Provides a HiddenField which name and value cannot be changed, once it
-     * is set.
-     */
-    private static class ImmutableHiddenField extends NonProcessedHiddenField {
-
-        private static final long serialVersionUID = 1L;
-
-       /**
-         * Create a field with the given name and value.
-         *
-         * @param name the field name
-         * @param value the value of the field
-         */
-        public ImmutableHiddenField(String name, Object value) {
-            super(name, value);
-        }
-
-        /**
-         * This method is overridden to not change the field value once it is set.
-         *
-         * @param value the field value
-         */
-        @Override
-        public void setValue(String value) {
-            if (this.value != null) {
-                return;
-            }
-            super.setValue(value);
-        }
-
-        /**
-         * This method is overridden to not change the field value object once
-         * it is set.
-         *
-         * @param valueObject the field value object
-         */
-        @Override
-        public void setValueObject(Object valueObject) {
-            if (this.valueObject != null) {
-                return;
-            }
-            super.setValueObject(valueObject);
-        }
-    }
 }
