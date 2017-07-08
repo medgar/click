@@ -292,9 +292,9 @@ public class MessagesMap implements Map<String, String> {
 
     /**
      * This method initializes and populates the internal{@link #messages} map
-     * and {@link #MESSAGES_CACHE} if it is not already initialized.
+     * and cache {@link #getMessagesCache()} if it is not already initialized.
      * <p/>
-     * <b>Please Note:</b> populating {@link #MESSAGES_CACHE} is not thread safe
+     * <b>Please Note:</b> populating the cache {@link #getMessagesCache()} is not thread safe
      * and access to the cache must be properly synchronized.
      */
     protected void ensureInitialized() {
@@ -372,12 +372,9 @@ public class MessagesMap implements Map<String, String> {
         }
     }
 
-    /**
-     * Return the message resource not found cache.
-     *
-     * @return the message resource not found cache
-     */
-    protected Set<String> getNotFoundCache() {
+    // Private Methods --------------------------------------------------------
+
+    protected static Set<String> getNotFoundCache() {
         Set<String> notFoundCache = NOT_FOUND_CLASSLOADER_CACHE.get();
         if (notFoundCache == null) {
             notFoundCache = new HashSet<String>();
@@ -387,12 +384,7 @@ public class MessagesMap implements Map<String, String> {
         return notFoundCache;
     }
 
-    /**
-     * Return the resources messages cache.
-     *
-     * @return the resources messages cache
-     */
-    protected Map<CacheKey, Map<String, String>> getMessagesCache() {
+    protected static Map<CacheKey, Map<String, String>> getMessagesCache() {
         Map<CacheKey, Map<String, String>> messagesCache = MESSAGES_CLASSLOADER_CACHE.get();
         if (messagesCache == null) {
             messagesCache = new ConcurrentHashMap<CacheKey, Map<String, String>>();
@@ -402,14 +394,12 @@ public class MessagesMap implements Map<String, String> {
         return messagesCache;
     }
 
-    // Protected Inner Classes ------------------------------------------------
-
     /**
-     * Provides a cache key object. See DRY Performance article by Kirk Pepperdine.
+     * See DRY Performance article by Kirk Pepperdine.
      * <p/>
      * http://www.javaspecialists.eu/archive/Issue134.html
      */
-    protected static class CacheKey {
+    private static class CacheKey {
 
         /** Global base name to encapsulate in cache key. */
         private final String globalBaseName;

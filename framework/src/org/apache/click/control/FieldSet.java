@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.click.Context;
 import org.apache.click.Control;
 import org.apache.click.util.ClickUtils;
@@ -228,33 +227,15 @@ public class FieldSet extends Field implements Container {
             Form form = getForm();
             field.setForm(form);
 
-            if (form != null) {
+            if (form != null && form.getDefaultFieldSize() > 0) {
+                if (field instanceof TextField) {
+                    ((TextField) field).setSize(form.getDefaultFieldSize());
 
-                if (form.getDefaultFieldSize() > 0) {
-                    if (field instanceof TextField) {
-                        ((TextField) field).setSize(form.getDefaultFieldSize());
+                } else if (field instanceof FileField) {
+                    ((FileField) field).setSize(form.getDefaultFieldSize());
 
-                    } else if (field instanceof FileField) {
-                        ((FileField) field).setSize(form.getDefaultFieldSize());
-
-                    } else if (field instanceof TextArea) {
-                        ((TextArea) field).setCols(form.getDefaultFieldSize());
-                    }
-                }
-
-                // Set the default button, field and label style classes
-                if (field instanceof Button) {
-                    if (form.getDefaultButtonStyleClass() != null) {
-                        field.addStyleClass(form.getDefaultButtonStyleClass());
-                    }
-
-                } else {
-                    if (form.getDefaultFieldStyleClass() != null) {
-                        field.addStyleClass(form.getDefaultFieldStyleClass());
-                    }
-                    if (form.getDefaultLabelStyleClass() != null) {
-                        field.setLabelStyleClass(form.getDefaultLabelStyleClass());
-                    }
+                } else if (field instanceof TextArea) {
+                    ((TextArea) field).setCols(form.getDefaultFieldSize());
                 }
             }
         }
@@ -304,32 +285,15 @@ public class FieldSet extends Field implements Container {
                 ((Field) currentControl).setForm(null);
             }
 
-            if (form != null) {
-                if (form.getDefaultFieldSize() > 0) {
-                    if (field instanceof TextField) {
-                        ((TextField) field).setSize(form.getDefaultFieldSize());
+            if (form != null && form.getDefaultFieldSize() > 0) {
+                if (field instanceof TextField) {
+                    ((TextField) field).setSize(form.getDefaultFieldSize());
 
-                    } else if (field instanceof FileField) {
-                        ((FileField) field).setSize(form.getDefaultFieldSize());
+                } else if (field instanceof FileField) {
+                    ((FileField) field).setSize(form.getDefaultFieldSize());
 
-                    } else if (field instanceof TextArea) {
-                        ((TextArea) field).setCols(form.getDefaultFieldSize());
-                    }
-                }
-
-                // Set the default button, field and label style classes
-                if (field instanceof Button) {
-                    if (form.getDefaultButtonStyleClass() != null) {
-                        field.addStyleClass(form.getDefaultButtonStyleClass());
-                    }
-
-                } else {
-                    if (form.getDefaultFieldStyleClass() != null) {
-                        field.addStyleClass(form.getDefaultFieldStyleClass());
-                    }
-                    if (form.getDefaultLabelStyleClass() != null) {
-                        field.setLabelStyleClass(form.getDefaultLabelStyleClass());
-                    }
+                } else if (field instanceof TextArea) {
+                    ((TextArea) field).setCols(form.getDefaultFieldSize());
                 }
             }
         }
@@ -847,40 +811,6 @@ public class FieldSet extends Field implements Container {
     }
 
     /**
-     * Add the legent CSS class attribute. Null values will be ignored.
-     *
-     * @param value the class attribute to add
-     */
-    public void addLegendStyleClass(String value) {
-        //If value is null, exit early
-        if (value == null) {
-            return;
-        }
-
-        //If any class attributes already exist, check if the specified class
-        //exists in the current set of classes.
-        if (getLegendAttributes().containsKey("class")) {
-            String oldStyleClasses = getLegendAttribute("class").trim();
-
-            //Check if the specified class exists in the class attribute set
-            boolean classExists = classExists(value, oldStyleClasses);
-
-            if (classExists) {
-                 //If the class already exist, exit early
-                return;
-            }
-
-            //Specified class does not exist so add it with the other class
-            //attributes
-            getLegendAttributes().put("class", oldStyleClasses + " " + value);
-
-        } else {
-            //Since no class attributes exist yet, only add the specified class
-            setLegendAttribute("class", value);
-        }
-    }
-
-    /**
      * Process the request invoking <tt>onProcess()</tt> on the contained
      * <tt>Control</tt> elements.
      *
@@ -1202,11 +1132,7 @@ public class FieldSet extends Field implements Container {
                 if (control instanceof Label) {
                     Label label = (Label) control;
                     buffer.append("<td align=\"");
-                    if (label.getTextAlign() != null) {
-                        buffer.append(label.getTextAlign());
-                    } else {
-                        buffer.append(form.getLabelAlign());
-                    }
+                    buffer.append(getForm().getLabelAlign());
                     buffer.append("\" class=\"fields");
 
                     String cellStyleClass = label.getParentStyleClassHint();
@@ -1279,9 +1205,7 @@ public class FieldSet extends Field implements Container {
 
                     // Only render a label if the fieldId and fieldLabel is set
                     if (fieldId != null && fieldLabel != null) {
-                        if (field.isRequired()
-                            && !field.isReadonly()
-                            && !field.isDisabled()) {
+                        if (field.isRequired()) {
                             buffer.append(form.getMessage("label-required-prefix"));
                         } else {
                             buffer.append(form.getMessage("label-not-required-prefix"));
@@ -1306,9 +1230,7 @@ public class FieldSet extends Field implements Container {
                         buffer.closeTag();
                         buffer.append(field.getLabel());
                         buffer.elementEnd("label");
-                        if (field.isRequired()
-                            && !field.isReadonly()
-                            && !field.isDisabled()) {
+                        if (field.isRequired()) {
                             buffer.append(form.getMessage("label-required-suffix"));
                         } else {
                             buffer.append(form.getMessage("label-not-required-suffix"));
