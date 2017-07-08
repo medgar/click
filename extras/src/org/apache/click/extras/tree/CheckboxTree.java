@@ -192,9 +192,11 @@ public class CheckboxTree extends Tree {
      *
      * @param selectChildNodes determines if child nodes will be
      * selected/deselected
+     * @return this checkbox tree
      */
-    public void setSelectChildNodes(boolean selectChildNodes) {
+    public CheckboxTree setSelectChildNodes(boolean selectChildNodes) {
         this.selectChildNodes = selectChildNodes;
+        return this;
     }
 
     // Public Methods ---------------------------------------------------------

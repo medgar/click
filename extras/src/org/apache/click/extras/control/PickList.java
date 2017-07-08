@@ -480,9 +480,10 @@ public class PickList extends Field {
      * }); </pre>
      *
      * @param dataProvider the PickList option list DataProvider
+     * @return this pick list
      */
     @SuppressWarnings("unchecked")
-    public void setDataProvider(DataProvider dataProvider) {
+    public PickList setDataProvider(DataProvider dataProvider) {
         this.dataProvider = dataProvider;
         if (dataProvider != null) {
             if (optionList != null) {
@@ -491,6 +492,7 @@ public class PickList extends Field {
             }
             setOptionList(null);
         }
+        return this;
     }
 
     /**
@@ -499,10 +501,12 @@ public class PickList extends Field {
      *
      * @param unselectedLabel the label text for the unselected list
      * @param selectedLabel the label text for the selected list
+     * @return this pick list
      */
-    public void setHeaderLabel(String unselectedLabel, String selectedLabel) {
+    public PickList setHeaderLabel(String unselectedLabel, String selectedLabel) {
         this.unselectedLabel = unselectedLabel;
         this.selectedLabel = selectedLabel;
+        return this;
     }
 
     /**
@@ -545,9 +549,11 @@ public class PickList extends Field {
      * Set the Option list.
      *
      * @param options the Option list
+     * @return this pick list
      */
-    public void setOptionList(List<Option> options) {
+    public PickList setOptionList(List<Option> options) {
         optionList = options;
+        return this;
     }
 
     /**
@@ -563,9 +569,11 @@ public class PickList extends Field {
      * Set the list height.
      *
      * @param  height the list height
+     * @return this pick list
      */
-    public void setHeight(int height) {
+    public PickList setHeight(int height) {
         this.height = height;
+        return this;
     }
 
     /**
@@ -611,9 +619,10 @@ public class PickList extends Field {
      *
      * @param objects the collection of objects to render selected values
      * @param value the name of the object property to render as the Option value
+     * @return this pick list
      * @throws IllegalArgumentException if options or value parameter is null
      */
-    public void setSelectedValues(Collection<?> objects, String value) {
+    public PickList setSelectedValues(Collection<?> objects, String value) {
         if (objects == null) {
             String msg = "objects parameter cannot be null";
             throw new IllegalArgumentException(msg);
@@ -624,7 +633,7 @@ public class PickList extends Field {
         }
 
         if (objects.isEmpty()) {
-            return;
+            return this;
         }
 
         ConfigService configService = ClickUtils.getConfigService();
@@ -644,6 +653,7 @@ public class PickList extends Field {
                 throw new RuntimeException(e);
             }
         }
+        return this;
     }
 
     /**
@@ -697,9 +707,11 @@ public class PickList extends Field {
      * } </pre>
      *
      * @param selectedValues the list of selected string values or null
+     * @return this pick list
      */
-    public void setSelectedValues(List<String> selectedValues) {
+    public PickList setSelectedValues(List<String> selectedValues) {
         this.selectedValues = selectedValues;
+        return this;
     }
 
     /**
@@ -728,22 +740,26 @@ public class PickList extends Field {
      * @see #setSelectedValues(java.util.List)
      *
      * @param object a List of Strings
+     * @return this pick list
      */
     @SuppressWarnings("unchecked")
     @Override
-    public void setValueObject(Object object) {
+    public PickList setValueObject(Object object) {
         if (object instanceof List<?>) {
             setSelectedValues((List<String>) object);
         }
+        return this;
     }
 
     /**
      * Set the component size.
      *
      * @param  size the component size
+     * @return this pick list
      */
-    public void setSize(int size) {
+    public PickList setSize(int size) {
         this.size = size;
+        return this;
     }
 
     /**

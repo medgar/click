@@ -209,16 +209,18 @@ public class ActionButton extends Button {
      * @see org.apache.click.Control#setName(String)
      *
      * @param name of the control
+     * @return this control
      * @throws IllegalArgumentException if the name is null
      */
     @Override
-    public void setName(String name) {
+    public ActionButton setName(String name) {
         if (ACTION_BUTTON.equals(name)) {
             String msg = "Invalid name '" + ACTION_BUTTON + "'. This name is "
                 + "reserved for use as a control request parameter name";
             throw new IllegalArgumentException(msg);
         }
         super.setName(name);
+        return this;
     }
 
     /**
@@ -227,12 +229,13 @@ public class ActionButton extends Button {
      * @see org.apache.click.Control#setParent(Object)
      *
      * @param parent the parent of the Control
+     * @return this contorl
      * @throws IllegalStateException if {@link #name} is not defined
      * @throws IllegalArgumentException if the given parent instance is
      * referencing <tt>this</tt> object: <tt>if (parent == this)</tt>
      */
     @Override
-    public void setParent(Object parent) {
+    public ActionButton setParent(Object parent) {
         if (parent == this) {
             throw new IllegalArgumentException("Cannot set parent to itself");
         }
@@ -241,6 +244,7 @@ public class ActionButton extends Button {
             throw new IllegalArgumentException(msg);
         }
         this.parent = parent;
+        return this;
     }
 
     /**
@@ -321,9 +325,10 @@ public class ActionButton extends Button {
      *
      * @param name the attribute name
      * @param value the attribute value
+     * @return this button
      * @throws IllegalArgumentException if name parameter is null
      */
-    public void setParameter(String name, String value) {
+    public ActionButton setParameter(String name, String value) {
         if (name == null) {
             throw new IllegalArgumentException("Null name parameter");
         }
@@ -333,6 +338,7 @@ public class ActionButton extends Button {
         } else {
             getParameters().remove(name);
         }
+        return this;
     }
 
     /**
@@ -351,9 +357,11 @@ public class ActionButton extends Button {
      * Set the ActionButton parameter map.
      *
      * @param parameters the button parameter map
+     * @return this button
      */
-    public void setParameters(Map parameters) {
+    public ActionButton setParameters(Map<String, Object> parameters) {
         this.parameters = parameters;
+        return this;
     }
 
     /**
@@ -473,10 +481,12 @@ public class ActionButton extends Button {
      * Set the ActionButton value.
      *
      * @param value the ActionButton value
+     * @return this field
      */
     @Override
-    public void setValue(String value) {
+    public ActionButton setValue(String value) {
         getParameters().put(VALUE, value);
+        return this;
     }
 
     /**
@@ -493,12 +503,14 @@ public class ActionButton extends Button {
      * Set the value of the field using the given object.
      *
      * @param object the object value to set
+     * @return this field
      */
     @Override
-    public void setValueObject(Object object) {
+    public ActionButton setValueObject(Object object) {
         if (object != null) {
             setValue(object.toString());
         }
+        return this;
     }
 
     // --------------------------------------------------------- Public Methods

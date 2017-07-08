@@ -554,9 +554,11 @@ public class Menu extends AbstractControl {
      * Set the menu access controller.
      *
      * @param accessController the menu access controller
+     * @return this menu
      */
-    public void setAccessController(AccessController accessController) {
+    public Menu setAccessController(AccessController accessController) {
         this.accessController = accessController;
+        return this;
     }
 
     /**
@@ -596,9 +598,11 @@ public class Menu extends AbstractControl {
      * Set whether the menu path refers to an external resource.
      *
      * @param value the flag as to whether the menu path refers to an external resource
+     * @return this menu
      */
-    public void setExternal(boolean value) {
+    public Menu setExternal(boolean value) {
         external = value;
+        return this;
     }
 
     /**
@@ -621,9 +625,11 @@ public class Menu extends AbstractControl {
      * rendered by the control.
      *
      * @param src the image src path attribute
+     * @return this menu
      */
-    public void setImageSrc(String src) {
+    public Menu setImageSrc(String src) {
         this.imageSrc = src;
+        return this;
     }
 
     /**
@@ -711,9 +717,11 @@ public class Menu extends AbstractControl {
      * Set the label of the Menu item.
      *
      * @param label the label of the Menu item
+     * @return this menu
      */
-    public void setLabel(String label) {
+    public Menu setLabel(String label) {
         this.label = label;
+        return this;
     }
 
     /**
@@ -731,9 +739,11 @@ public class Menu extends AbstractControl {
      * current request then the Menu item will be selected.
      *
      * @param pages the list of valid Page paths
+     * @return this menu
      */
-    public void setPages(List<String> pages) {
+    public Menu setPages(List<String> pages) {
         this.pages = pages;
+        return this;
     }
 
     /**
@@ -749,9 +759,11 @@ public class Menu extends AbstractControl {
      * Set the path of the Menu item.
      *
      * @param path the path of the Menu item
+     * @return this menu
      */
-    public void setPath(String path) {
+    public Menu setPath(String path) {
         this.path = path;
+        return this;
     }
 
     /**
@@ -779,9 +791,11 @@ public class Menu extends AbstractControl {
      * Set the list of valid roles for the Menu item.
      *
      * @param roles the list of valid roles for the Menu item
+     * @return this menu
      */
-    public void setRoles(List<String> roles) {
+    public Menu setRoles(List<String> roles) {
         this.roles = roles;
+        return this;
     }
 
     /**
@@ -851,9 +865,11 @@ public class Menu extends AbstractControl {
      * Set whether the Menu item is a separator.
      *
      * @param separator the flag indicating whether the Menu item is a separator
+     * @return this menu
      */
-    public void setSeparator(boolean separator) {
+    public Menu setSeparator(boolean separator) {
         this.separator = separator;
+        return this;
     }
 
     /**
@@ -928,9 +944,11 @@ public class Menu extends AbstractControl {
      * Set the target attribute of the Menu item.
      *
      * @param target the target attribute of the Menu item
+     * @return this menu
      */
-    public void setTarget(String target) {
+    public Menu setTarget(String target) {
         this.target = target;
+        return this;
     }
 
     /**
@@ -994,9 +1012,11 @@ public class Menu extends AbstractControl {
      * Set the title attribute of the Menu item.
      *
      * @param title the title attribute of the Menu item
+     * @return this menu
      */
-    public void setTitle(String title) {
+    public Menu setTitle(String title) {
         this.title = title;
+        return this;
     }
 
     /**

@@ -234,9 +234,11 @@ public class ColorPicker extends Field {
      * not. Default is true.
      *
      * @param showTextField the showTextField to set
+     * @return this color picker
      */
-    public void setShowTextField(boolean showTextField) {
+    public ColorPicker setShowTextField(boolean showTextField) {
         this.showTextField = showTextField;
+        return this;
     }
 
     /**
@@ -253,9 +255,11 @@ public class ColorPicker extends Field {
      * Set the field size.
      *
      * @param size the field size
+     * @return this color picker
      */
-    public void setSize(int size) {
+    public ColorPicker setSize(int size) {
         this.size = size;
+        return this;
     }
 
     /**

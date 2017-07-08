@@ -125,9 +125,11 @@ public class Button extends Field {
      * Sets the button onclick attribute value.
      *
      * @param value the onclick attribute value.
+     * @return this button
      */
-    public void setOnClick(String value) {
+    public Button setOnClick(String value) {
         setAttribute("onclick", value);
+        return this;
     }
 
     /**

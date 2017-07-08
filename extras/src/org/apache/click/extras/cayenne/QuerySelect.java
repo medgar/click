@@ -209,9 +209,11 @@ public class QuerySelect extends Select {
      * Set the decorator to render the option labels.
      *
      * @param decorator the decorator to render the select option labels
+     * @return this select
      */
-    public void setDecorator(Decorator decorator) {
+    public QuerySelect setDecorator(Decorator decorator) {
         this.decorator = decorator;
+        return this;
     }
 
     /**
@@ -227,9 +229,11 @@ public class QuerySelect extends Select {
      * Set the query should expire cache parameter.
      *
      * @param expireCache the query should expire cache parameter
+     * @return this select
      */
-    public void setExpireCache(boolean expireCache) {
+    public QuerySelect setExpireCache(boolean expireCache) {
         this.expireCache = expireCache;
+        return this;
     }
 
     /**
@@ -245,9 +249,11 @@ public class QuerySelect extends Select {
      * Set the <tt>NamedQuery</tt> to populate the options list with.
      *
      * @param namedQuery to populate the options list with
+     * @return this select
      */
-    public void setNamedQuery(NamedQuery namedQuery) {
+    public QuerySelect setNamedQuery(NamedQuery namedQuery) {
         this.namedQuery = namedQuery;
+        return this;
     }
 
     /**
@@ -265,9 +271,11 @@ public class QuerySelect extends Select {
      * with.
      *
      * @param queryName the name of the configured query to populate the options list with
+     * @return this select
      */
-    public void setQueryName(String queryName) {
+    public QuerySelect setQueryName(String queryName) {
         this.queryName = queryName;
+        return this;
     }
 
     /**
@@ -277,13 +285,15 @@ public class QuerySelect extends Select {
      * @param queryName the configured named query to execute
      * @param optionValue the property to render as the option value
      * @param optionLabel the property to render as the option label
+     * @return this select
      */
-    public void setQueryValueLabel(String queryName, String optionValue,
+    public QuerySelect setQueryValueLabel(String queryName, String optionValue,
             String optionLabel) {
 
         setQueryName(queryName);
         setOptionValue(optionValue);
         setOptionLabel(optionLabel);
+        return this;
     }
 
     /**
@@ -299,9 +309,11 @@ public class QuerySelect extends Select {
      * Set whether the option list includes an empty option value.
      *
      * @param value set whether the option list includes an empty option value
+     * @return this select
      */
-    public void setOptional(boolean value) {
+    public QuerySelect setOptional(boolean value) {
         optional = value;
+        return this;
     }
 
     /**
@@ -322,9 +334,11 @@ public class QuerySelect extends Select {
      * Set the query result property to render as the option label.
      *
      * @param optionLabel the query result property to render as the option label
+     * @return this select
      */
-    public void setOptionLabel(String optionLabel) {
+    public QuerySelect setOptionLabel(String optionLabel) {
         this.optionLabel = optionLabel;
+        return this;
     }
 
     /**
@@ -345,9 +359,11 @@ public class QuerySelect extends Select {
      * Set the query result property to render as the option value.
      *
      * @param optionValue the query result property to render as the option value
+     * @return this select
      */
-    public void setOptionValue(String optionValue) {
+    public QuerySelect setOptionValue(String optionValue) {
         this.optionValue = optionValue;
+        return this;
     }
 
     /**
@@ -364,9 +380,11 @@ public class QuerySelect extends Select {
      *
      * @param selectQuery the <tt>SelectQuery</tt> to populate the options
      *  list with
+     * @return this select
      */
-    public void setSelectQuery(SelectQuery selectQuery) {
+    public QuerySelect setSelectQuery(SelectQuery selectQuery) {
         this.selectQuery = selectQuery;
+        return this;
     }
 
     // Public Methods ---------------------------------------------------------

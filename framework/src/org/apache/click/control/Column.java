@@ -345,9 +345,10 @@ public class Column implements Serializable {
      *
      * @param name the name of the column HTML attribute
      * @param value the value of the column HTML attribute
+     * @return this column
      * @throws IllegalArgumentException if attribute name is null
      */
-    public void setAttribute(String name, String value) {
+    public Column setAttribute(String name, String value) {
         if (name == null) {
             throw new IllegalArgumentException("Null name parameter");
         }
@@ -357,6 +358,7 @@ public class Column implements Serializable {
         } else {
             getAttributes().remove(name);
         }
+        return this;
     }
 
     /**
@@ -396,9 +398,11 @@ public class Column implements Serializable {
      *
      * @param autolink the flag to automatically hyperlink column URL and
      * email addresses flag
+     * @return this column
      */
-    public void setAutolink(boolean autolink) {
+    public Column setAutolink(boolean autolink) {
         this.autolink = autolink;
+        return this;
     }
 
     /**
@@ -420,10 +424,12 @@ public class Column implements Serializable {
      * values.
      *
      * @param comparator the column row data sorting comparator object
+     * @return this column
      */
     @SuppressWarnings("unchecked")
-    public void setComparator(Comparator comparator) {
+    public Column setComparator(Comparator comparator) {
         this.comparator = comparator;
+        return this;
     }
 
     /**
@@ -439,9 +445,11 @@ public class Column implements Serializable {
      * Set the table data &lt;td&gt; CSS class.
      *
      * @param dataClass the table data CSS class
+     * @return this column
      */
-    public void setDataClass(String dataClass) {
+    public Column setDataClass(String dataClass) {
         this.dataClass = dataClass;
+        return this;
     }
 
     /**
@@ -464,8 +472,9 @@ public class Column implements Serializable {
      *
      * @param name the CSS style name
      * @param value the CSS style value
+     * @return this column
      */
-    public void setDataStyle(String name, String value) {
+    public Column setDataStyle(String name, String value) {
         if (name == null) {
             throw new IllegalArgumentException("Null name parameter");
         }
@@ -475,6 +484,7 @@ public class Column implements Serializable {
         } else {
             getDataStyles().remove(name);
         }
+        return this;
     }
 
     /**
@@ -511,9 +521,11 @@ public class Column implements Serializable {
      * Set the row column &lt;td&gt; decorator.
      *
      * @param decorator the row column &lt;td&gt; decorator
+     * @return this column
      */
-    public void setDecorator(Decorator decorator) {
+    public Column setDecorator(Decorator decorator) {
         this.decorator = decorator;
+        return this;
     }
 
     /**
@@ -530,9 +542,11 @@ public class Column implements Serializable {
      * Set the escape HTML characters when rendering column data flag.
      *
      * @param escape the flag to escape HTML characters
+     * @return this column
      */
-    public void setEscapeHtml(boolean escape) {
+    public Column setEscapeHtml(boolean escape) {
         this.escapeHtml = escape;
+        return this;
     }
 
     /**
@@ -802,9 +816,11 @@ public class Column implements Serializable {
      *   </table>
      *
      * @param pattern the message format pattern
+     * @return this column
      */
-    public void setFormat(String pattern) {
+    public Column setFormat(String pattern) {
         this.format = pattern;
+        return this;
     }
 
     /**
@@ -824,9 +840,11 @@ public class Column implements Serializable {
      * will be truncated with an eclipse(...).
      *
      * @param value the maximum column length
+     * @return this column
      */
-    public void setMaxLength(int value) {
+    public Column setMaxLength(int value) {
         maxLength = value;
+        return this;
     }
 
     /**
@@ -843,9 +861,11 @@ public class Column implements Serializable {
      *
      * @param messageFormat the MessageFormat used to format the table cell
      *  value
+     * @return this column
      */
-    public void setMessageFormat(MessageFormat messageFormat) {
+    public Column setMessageFormat(MessageFormat messageFormat) {
         this.messageFormat = messageFormat;
+        return this;
     }
 
     /**
@@ -861,9 +881,11 @@ public class Column implements Serializable {
      * Set the property name.
      *
      * @param name the property name to set
+     * @return this column
      */
-    public void setName(String name) {
+    public Column setName(String name) {
         this.name = name;
+        return this;
     }
 
     /**
@@ -879,9 +901,11 @@ public class Column implements Serializable {
      * Set the table header &lt;th&gt; CSS class.
      *
      * @param headerClass the table header CSS class
+     * @return this column
      */
-    public void setHeaderClass(String headerClass) {
+    public Column setHeaderClass(String headerClass) {
         this.headerClass = headerClass;
+        return this;
     }
 
     /**
@@ -904,8 +928,9 @@ public class Column implements Serializable {
      *
      * @param name the CSS style name
      * @param value the CSS style value
+     * @return this column
      */
-    public void setHeaderStyle(String name, String value) {
+    public Column setHeaderStyle(String name, String value) {
         if (name == null) {
             throw new IllegalArgumentException("Null name parameter");
         }
@@ -915,6 +940,7 @@ public class Column implements Serializable {
         } else {
             getHeaderStyles().remove(name);
         }
+        return this;
     }
 
     /**
@@ -968,9 +994,11 @@ public class Column implements Serializable {
      * Set the table header &lt;th&gt; title.
      *
      * @param title the table header title
+     * @return this column
      */
-    public void setHeaderTitle(String title) {
+    public Column setHeaderTitle(String title) {
         headerTitle = title;
+        return this;
     }
 
     /**
@@ -1025,9 +1053,11 @@ public class Column implements Serializable {
      * Set the column render id attribute status.
      *
      * @param value set the column render id attribute status
+     * @return this column
      */
-    public void setRenderId(boolean value) {
+    public Column setRenderId(boolean value) {
         renderId = value;
+        return this;
     }
 
     /**
@@ -1054,9 +1084,11 @@ public class Column implements Serializable {
      * Set the column sortable status.
      *
      * @param value the column sortable status
+     * @return this column
      */
-    public void setSortable(boolean value) {
+    public Column setSortable(boolean value) {
         sortable = value;
+        return this;
     }
 
     /**
@@ -1072,9 +1104,11 @@ public class Column implements Serializable {
      * Set the Column's the parent <tt>Table</tt>.
      *
      * @param table Column's parent <tt>Table</tt>
+     * @return this column
      */
-    public void setTable(Table table) {
+    public Column setTable(Table table) {
         this.table = table;
+        return this;
     }
 
     /**
@@ -1083,8 +1117,9 @@ public class Column implements Serializable {
      * <tt>[left, right, center]</tt>
      *
      * @param align the CSS "text-align" value: <tt>[left, right, center]</tt>
+     * @return this column
      */
-    public void setTextAlign(String align) {
+    public Column setTextAlign(String align) {
         if (align != null && "middle".equalsIgnoreCase(align)) {
             String msg =
                 "\"middle\" is not a valid CSS \"text-align\" "
@@ -1095,6 +1130,7 @@ public class Column implements Serializable {
             setHeaderStyle("text-align", align);
         }
         setDataStyle("text-align", align);
+        return this;
     }
 
     /**
@@ -1110,9 +1146,11 @@ public class Column implements Serializable {
      * Set the property name used to populate the &lt;td&gt; "title" attribute.
      *
      * @param property the property name used to populate the &lt;td&gt; "title" attribute
+     * @return this column
      */
-    public void setTitleProperty(String property) {
+    public Column setTitleProperty(String property) {
        titleProperty = property;
+       return this;
     }
 
     /**
@@ -1122,8 +1160,9 @@ public class Column implements Serializable {
      * text-bottom | &lt;percentage&gt; | &lt;length&gt; | inherit]</tt>
      *
      * @param align the CSS "vertical-align" value
+     * @return this column
      */
-    public void setVerticalAlign(String align) {
+    public Column setVerticalAlign(String align) {
         if (align != null && "center".equalsIgnoreCase(align)) {
             String msg =
                 "\"center\" is not a valid CSS \"vertical-align\" "
@@ -1132,6 +1171,7 @@ public class Column implements Serializable {
         }
         setHeaderStyle("vertical-align", align);
         setDataStyle("vertical-align", align);
+        return this;
     }
 
     /**
@@ -1147,9 +1187,11 @@ public class Column implements Serializable {
      * Set the column HTML &lt;td&gt; width attribute.
      *
      * @param value the column HTML &lt;td&gt; width attribute
+     * @return this column
      */
-    public void setWidth(String value) {
+    public Column setWidth(String value) {
         width = value;
+        return this;
     }
 
     // --------------------------------------------------------- Public Methods

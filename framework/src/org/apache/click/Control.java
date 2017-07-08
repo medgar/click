@@ -244,12 +244,13 @@ public interface Control extends Serializable {
      *
      * @param listener the listener object with the named method to invoke
      * @param method the name of the method to invoke
+     * @return this control
      *
      * @deprecated this method is now obsolete on the Control interface, but
      * will still be available on AbstractControl:
      * {@link org.apache.click.control.AbstractControl#setListener(java.lang.Object, java.lang.String)}
      */
-    public void setListener(Object listener, String method);
+    public Control setListener(Object listener, String method);
 
     /**
      * Return the localized messages <tt>Map</tt> of the Control.
@@ -275,9 +276,10 @@ public interface Control extends Serializable {
      * to change the name of a Control once its been set.
      *
      * @param name of the control
+     * @return this control
      * @throws IllegalArgumentException if the name is null
      */
-    public void setName(String name);
+    public Control setName(String name);
 
     /**
      * Return the parent of the Control.
@@ -290,8 +292,9 @@ public interface Control extends Serializable {
      * Set the parent of the  Control.
      *
      * @param parent the parent of the Control
+     * @return this control
      */
-    public void setParent(Object parent);
+    public Control setParent(Object parent);
 
     /**
      * The on deploy event handler, which provides classes the

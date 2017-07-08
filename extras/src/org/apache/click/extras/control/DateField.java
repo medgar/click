@@ -303,14 +303,16 @@ public class DateField extends TextField {
      * Set the field Date value.
      *
      * @param date the Date value to set
+     * @return this field
      */
-    public void setDate(Date date) {
+    public DateField setDate(Date date) {
         this.date = date;
         if (date != null) {
             super.setValue(getDateFormat().format(date));
         } else {
             super.setValue(null);
         }
+        return this;
     }
 
     /**
@@ -448,24 +450,28 @@ public class DateField extends TextField {
      *   </table>
      *
      * @param pattern the SimpleDateFormat pattern
+     * @return this field
      */
-    public void setFormatPattern(String pattern) {
+    public DateField setFormatPattern(String pattern) {
         if (pattern == null) {
             throw new IllegalArgumentException("Null pattern parameter");
         }
         formatPattern = pattern;
         calendarPattern = parseDateFormatPattern(pattern);
+        return this;
     }
 
     /**
      * @see org.apache.click.control.Field#setName(String)
      *
      * @param name of the control
+     * @return this field
      * @throws IllegalArgumentException if the name is null
      */
     @Override
-    public void setName(String name) {
+    public DateField setName(String name) {
         super.setName(name);
+        return this;
     }
 
     /**
@@ -488,9 +494,10 @@ public class DateField extends TextField {
      * Set the DateField value.
      *
      * @param value the DateField value
+     * @return this field
      */
     @Override
-    public void setValue(String value) {
+    public DateField setValue(String value) {
         if (value != null && value.length() > 0) {
             try {
                 Date parsedDate = getDateFormat().parse(value);
@@ -506,6 +513,7 @@ public class DateField extends TextField {
             date = null;
         }
         super.setValue(value);
+        return this;
     }
 
     /**
@@ -523,9 +531,10 @@ public class DateField extends TextField {
      * Set the date value of the field using the given object.
      *
      * @param object the object value to set
+     * @return this field
      */
     @Override
-    public void setValueObject(Object object) {
+    public DateField setValueObject(Object object) {
         if (object != null) {
             if (Date.class.isAssignableFrom(object.getClass())) {
                 setDate((Date) object);
@@ -536,6 +545,7 @@ public class DateField extends TextField {
                 throw new IllegalArgumentException(msg);
             }
         }
+        return this;
     }
 
     /**
@@ -632,9 +642,11 @@ public class DateField extends TextField {
      * Set the Calendar popup show the time display bar flag.
      *
      * @param showTime the flag to show the Calendar time display bar
+     * @return this field
      */
-    public void setShowTime(boolean showTime) {
+    public DateField setShowTime(boolean showTime) {
         this.showTime = showTime;
+        return this;
     }
 
     /**
@@ -653,9 +665,11 @@ public class DateField extends TextField {
      *
      * @param showCalendar flag indicating whether the Calendar popup is
      * displayed or not
+     * @return this field
      */
-    public void setShowCalendar(boolean showCalendar) {
+    public DateField setShowCalendar(boolean showCalendar) {
         this.showCalendar = showCalendar;
+        return this;
     }
 
     /**
@@ -671,9 +685,11 @@ public class DateField extends TextField {
      * Set the minimum year of the Calendar.
      *
      * @param minimumYear the minimum year of the Calendar
+     * @return this field
      */
-    public void setMinimumYear(int minimumYear) {
+    public DateField setMinimumYear(int minimumYear) {
         this.minimumYear = minimumYear;
+        return this;
     }
 
     /**
@@ -689,9 +705,11 @@ public class DateField extends TextField {
      * Set the maximum year of the Calendar.
      *
      * @param maximumYear the maximum year of the Calendar
+     * @return this field
      */
-    public void setMaximumYear(int maximumYear) {
+    public DateField setMaximumYear(int maximumYear) {
         this.maximumYear = maximumYear;
+        return this;
     }
 
     /**
@@ -709,12 +727,14 @@ public class DateField extends TextField {
      * Available styles are: <tt>[blue, default, plain, red, silver]</tt>.
      *
      * @param style the Calendar CSS style
+     * @return this field
      */
-    public void setStyle(String style) {
+    public DateField setStyle(String style) {
         if (style == null) {
             throw new IllegalArgumentException("Null style parameter");
         }
         this.style = style;
+        return this;
     }
 
     /**

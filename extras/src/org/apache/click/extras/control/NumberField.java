@@ -242,18 +242,11 @@ public class NumberField extends TextField {
      * Set the maximum valid double field value.
      *
      * @param value the maximum valid double field value
+     * @return this field
      */
-    public void setMaxValue(double value) {
+    public NumberField setMaxValue(double value) {
         maxvalue = value;
-    }
-
-    /**
-     * Set the minimum valid double field value.
-     *
-     * @param value the minimum valid double field value
-     */
-    public void setMinValue(double value) {
-        minvalue = value;
+        return this;
     }
 
     /**
@@ -263,6 +256,17 @@ public class NumberField extends TextField {
      */
     public double getMinValue() {
         return minvalue;
+    }
+
+    /**
+     * Set the minimum valid double field value.
+     *
+     * @param value the minimum valid double field value
+     * @return this field
+     */
+    public NumberField setMinValue(double value) {
+        minvalue = value;
+        return this;
     }
 
     /**
@@ -289,13 +293,15 @@ public class NumberField extends TextField {
      * Set the Number value of the field.
      *
      * @param number the field number value to set
+     * @return this field
      */
-    public void setNumber(Number number) {
+    public NumberField setNumber(Number number) {
         if (number != null) {
             setValue(getNumberFormat().format(number));
         } else {
             setValue(null);
         }
+        return this;
     }
 
     /**
@@ -334,8 +340,9 @@ public class NumberField extends TextField {
      * the pattern will be applied to the new Format if it a DecimalFormat.
      *
      * @param format the number format
+     * @return this field
      */
-    public void setNumberFormat(NumberFormat format) {
+    public NumberField setNumberFormat(NumberFormat format) {
         numberFormat = format;
 
         if (format instanceof DecimalFormat) {
@@ -343,6 +350,7 @@ public class NumberField extends TextField {
                 ((DecimalFormat) numberFormat).applyPattern(getPattern());
             }
         }
+        return this;
     }
 
     /**
@@ -362,8 +370,9 @@ public class NumberField extends TextField {
      * already set NumberFormat.
      *
      * @param pattern the pattern used for formatting and parsing
+     * @return this field
      */
-    public void setPattern(String pattern) {
+    public NumberField setPattern(String pattern) {
         this.pattern = pattern;
 
         if (pattern != null) {
@@ -371,6 +380,7 @@ public class NumberField extends TextField {
                 ((DecimalFormat) numberFormat).applyPattern(pattern);
             }
         }
+        return this;
     }
 
     /**
@@ -388,9 +398,10 @@ public class NumberField extends TextField {
      * Set the Number value of the field using the given object.
      *
      * @param object the object value to set
+     * @return this field
      */
     @Override
-    public void setValueObject(Object object) {
+    public NumberField setValueObject(Object object) {
         if (object instanceof Number) {
             setNumber((Number) object);
 
@@ -402,6 +413,7 @@ public class NumberField extends TextField {
                 setValue(null);
             }
         }
+        return this;
     }
 
     /**

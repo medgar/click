@@ -216,9 +216,11 @@ public class EmailField extends TextField {
      * Specify whether to remove whitespace characters from users entered value.
      *
      * @param removeWhitespace specify whether to remove email whitespace characters
+     * @return this field
      */
-    public void setRemoveWhitespace(boolean removeWhitespace) {
+    public EmailField setRemoveWhitespace(boolean removeWhitespace) {
         this.removeWhitespace = removeWhitespace;
+        return this;
     }
 
     /**

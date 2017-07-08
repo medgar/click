@@ -19,8 +19,8 @@
 package org.apache.click.control;
 
 import java.text.MessageFormat;
-import org.apache.click.Context;
 
+import org.apache.click.Context;
 import org.apache.click.util.HtmlStringBuffer;
 
 /**
@@ -134,9 +134,11 @@ public class Checkbox extends Field {
      * Set the selected value of the checkbox.
      *
      * @param value the selected value
+     * @return this checkbox
      */
-    public void setChecked(boolean value) {
+    public Checkbox setChecked(boolean value) {
         checked = value;
+        return this;
     }
 
     /**
@@ -167,10 +169,12 @@ public class Checkbox extends Field {
      * @see Field#setValue(String)
      *
      * @param value the Field value
+     * @return this field
      */
     @Override
-    public void setValue(String value) {
+    public Checkbox setValue(String value) {
         checked = Boolean.valueOf(value);
+        return this;
      }
 
     /**
@@ -196,12 +200,14 @@ public class Checkbox extends Field {
      * @see Field#setValueObject(Object)
      *
      * @param object the object value to set
+     * @return this field
      */
     @Override
-    public void setValueObject(Object object) {
+    public Checkbox setValueObject(Object object) {
         if (object != null && object instanceof Boolean) {
             checked = (Boolean) object;
         }
+        return this;
     }
 
     /**

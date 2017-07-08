@@ -279,9 +279,10 @@ public class PropertySelect extends Select {
      * @see Select#setMultiple(boolean)
      *
      * @param value the multiple options can be selected flag
+     * @return this select
      */
     @Override
-    public void setMultiple(boolean value) {
+    public Select setMultiple(boolean value) {
         String msg = "PropertySelect does not support multiple property values";
         throw new UnsupportedOperationException(msg);
     }
@@ -298,9 +299,11 @@ public class PropertySelect extends Select {
      * Set the <tt>NamedQuery</tt> to populate the options list with.
      *
      * @param namedQuery to populate the options list with
+     * @return this select
      */
-    public void setNamedQuery(NamedQuery namedQuery) {
+    public PropertySelect setNamedQuery(NamedQuery namedQuery) {
         this.namedQuery = namedQuery;
+        return this;
     }
 
     /**
@@ -316,9 +319,11 @@ public class PropertySelect extends Select {
      * Set whether the option list includes an empty option value.
      *
      * @param value set whether the option list includes an empty option value
+     * @return this select
      */
-    public void setOptional(boolean value) {
+    public PropertySelect setOptional(boolean value) {
         optional = value;
+        return this;
     }
 
     /**
@@ -336,9 +341,11 @@ public class PropertySelect extends Select {
      *
      * @param optionLabel the <tt>DataObject</tt> property to render as the
      *  option label
+     * @return this select
      */
-    public void setOptionLabel(String optionLabel) {
+    public PropertySelect setOptionLabel(String optionLabel) {
         this.optionLabel = optionLabel;
+        return this;
     }
 
     /**
@@ -370,9 +377,11 @@ public class PropertySelect extends Select {
      * the ordering should be specified in the query definition.
      *
      * @param ordering the select query ordering
+     * @return this select
      */
-    public void setOrdering(Ordering ordering) {
+    public PropertySelect setOrdering(Ordering ordering) {
         this.ordering = ordering;
+        return this;
     }
 
     /**
@@ -380,9 +389,11 @@ public class PropertySelect extends Select {
      *
      * @param selectQuery the <tt>SelectQuery</tt> to populate the options
      *  list with
+     * @return this select
      */
-    public void setSelectQuery(SelectQuery selectQuery) {
+    public PropertySelect setSelectQuery(SelectQuery selectQuery) {
         this.selectQuery = selectQuery;
+        return this;
     }
 
     /**
@@ -404,10 +415,11 @@ public class PropertySelect extends Select {
      *
      * @see org.apache.click.control.Field#setValueObject(Object)
      *
-     * @param object the object value to set
+     * @param object the object value to set'
+     * @return this select
      */
     @Override
-    public void setValueObject(Object object) {
+    public PropertySelect setValueObject(Object object) {
         if (object != null) {
             DataObject dataObject = (DataObject) object;
             valueObject = dataObject;
@@ -422,6 +434,7 @@ public class PropertySelect extends Select {
                 value = pk.toString();
             }
         }
+        return this;
     }
 
     // Public Methods ---------------------------------------------------------

@@ -120,11 +120,12 @@ public class Radio extends Field {
      * Set the selected value of the radio.
      *
      * @param value the selected value
+     * @return this radio
      */
-    public void setChecked(boolean value) {
+    public Radio setChecked(boolean value) {
         checked = value;
+        return this;
     }
-
 
     /**
      * Return the Radio field id attribute.
@@ -174,15 +175,17 @@ public class Radio extends Field {
      * @see org.apache.click.Control#setParent(Object)
      *
      * @param parent the parent of the Control
+     * @return this radio
      * @throws IllegalArgumentException if the given parent instance is
      * referencing <tt>this</tt> object: <tt>if (parent == this)</tt>
      */
     @Override
-    public void setParent(Object parent) {
+    public Radio setParent(Object parent) {
         if (parent == this) {
             throw new IllegalArgumentException("Cannot set parent to itself");
         }
         this.parent = parent;
+        return this;
     }
 
     /**
@@ -295,11 +298,13 @@ public class Radio extends Field {
      * @see Field#setValue(String)
      *
      * @param value the Field value
+     * @return this radio
      */
     @Override
-    public void setValue(String value) {
+    public Radio setValue(String value) {
         setChecked(getValue().equals(value));
         super.setValue(value);
+        return this;
     }
 
     // --------------------------------------------------------- Public Methods

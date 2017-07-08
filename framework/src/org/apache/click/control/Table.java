@@ -26,17 +26,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
-import org.apache.click.Context;
 
+import org.apache.click.Context;
 import org.apache.click.Control;
 import org.apache.click.Stateful;
+import org.apache.click.dataprovider.DataProvider;
+import org.apache.click.dataprovider.PagingDataProvider;
 import org.apache.click.element.CssImport;
 import org.apache.click.element.CssStyle;
 import org.apache.click.element.Element;
 import org.apache.click.util.ClickUtils;
-import org.apache.click.dataprovider.DataProvider;
 import org.apache.click.util.HtmlStringBuffer;
-import org.apache.click.dataprovider.PagingDataProvider;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 
@@ -406,7 +406,6 @@ public class Table extends AbstractControl implements Stateful {
     protected String height;
 
     /** The table data provider. */
-    @SuppressWarnings("unchecked")
     protected DataProvider dataProvider;
 
     /**
@@ -466,7 +465,6 @@ public class Table extends AbstractControl implements Stateful {
      * The list Table rows. Please note the rowList is cleared in table
      * {@link #onDestroy()} method at the end of each request.
      */
-    @SuppressWarnings("unchecked")
     protected List rowList;
 
     /**
@@ -534,12 +532,13 @@ public class Table extends AbstractControl implements Stateful {
      * @see org.apache.click.Control#setParent(Object)
      *
      * @param parent the parent of the Table
+     * @return this table
      * @throws IllegalStateException if {@link #name} is not defined
      * @throws IllegalArgumentException if the given parent instance is
      * referencing <tt>this</tt> object: <tt>if (parent == this)</tt>
      */
     @Override
-    public void setParent(Object parent) {
+    public Table setParent(Object parent) {
         if (parent == this) {
             throw new IllegalArgumentException("Cannot set parent to itself");
         }
@@ -547,6 +546,7 @@ public class Table extends AbstractControl implements Stateful {
             throw new IllegalArgumentException("Table name is not defined");
         }
         this.parent = parent;
+        return this;
     }
 
     /**
@@ -565,9 +565,11 @@ public class Table extends AbstractControl implements Stateful {
      * <tt>[ POSITION_TOP | POSITION_BOTTOM | POSITION_BOTH ]</tt>.
      *
      * @param value the table pagination banner position
+     * @return this table
      */
-    public void setBannerPosition(int value) {
+    public Table setBannerPosition(int value) {
         bannerPosition = value;
+        return this;
     }
 
     /**
@@ -585,9 +587,11 @@ public class Table extends AbstractControl implements Stateful {
      * Set the content of the table <tt>&lt;caption&gt;</tt> element.
      *
      * @param caption the content of the caption element.
+     * @return this table
      */
-    public void setCaption(String caption) {
+    public Table setCaption(String caption) {
         this.caption = caption;
+        return this;
     }
 
     /**
@@ -608,9 +612,11 @@ public class Table extends AbstractControl implements Stateful {
      * </ul>
      *
      * @param value the HTML class attribute
+     * @return this table
      */
-    public void setClass(String value) {
+    public Table setClass(String value) {
         setAttribute("class", value);
+        return this;
     }
 
     /**
@@ -700,9 +706,11 @@ public class Table extends AbstractControl implements Stateful {
      *
      * @param value the flag value to nullify the table rowList when onDestroy
      * is called
+     * @return this table
      */
-    public void setNullifyRowListOnDestroy(boolean value) {
+    public Table setNullifyRowListOnDestroy(boolean value) {
         nullifyRowListOnDestroy = value;
+        return this;
     }
 
     /**
@@ -809,7 +817,6 @@ public class Table extends AbstractControl implements Stateful {
      *
      * @return the table row list DataProvider
      */
-    @SuppressWarnings("unchecked")
     public DataProvider getDataProvider() {
         return dataProvider;
     }
@@ -882,13 +889,14 @@ public class Table extends AbstractControl implements Stateful {
      * @see #setRowList(java.util.List)
      *
      * @param dataProvider the table row list DataProvider
+     * @return this table
      */
-    @SuppressWarnings("unchecked")
-    public void setDataProvider(DataProvider dataProvider) {
+    public Table setDataProvider(DataProvider dataProvider) {
         this.dataProvider = dataProvider;
         if (dataProvider != null) {
             setRowList(null);
         }
+        return this;
     }
 
     /**
@@ -903,9 +911,11 @@ public class Table extends AbstractControl implements Stateful {
      * Set the table HTML &lt;td&gt; height attribute.
      *
      * @param value the table HTML &lt;td&gt; height attribute
+     * @return this table
      */
-    public void setHeight(String value) {
+    public Table setHeight(String value) {
         height = value;
+        return this;
     }
 
     /**
@@ -932,9 +942,11 @@ public class Table extends AbstractControl implements Stateful {
      *
      * @param hoverRows specify whether class 'hover' rows attribute is rendered
      * (default false).
+     * @return this table
      */
-    public void setHoverRows(boolean hoverRows) {
+    public Table setHoverRows(boolean hoverRows) {
         this.hoverRows = hoverRows;
+        return this;
     }
 
     /**
@@ -1017,16 +1029,18 @@ public class Table extends AbstractControl implements Stateful {
      * @see Control#setName(String)
      *
      * @param name of the control
+     * @return this table
      * @throws IllegalArgumentException if the name is null
      */
     @Override
-    public void setName(String name) {
+    public Table setName(String name) {
         super.setName(name);
         ActionLink localControlLink = getControlLink();
         localControlLink.setName(getName() + "-controlLink");
         if ((localControlLink.getParent()) == null) {
             localControlLink.setParent(this);
         }
+        return this;
     }
 
     /**
@@ -1064,9 +1078,11 @@ public class Table extends AbstractControl implements Stateful {
      * indexed, i.e. the page number of the first page is 0.
      *
      * @param pageNumber set the currently displayed page number
+     * @return this table
      */
-    public void setPageNumber(int pageNumber) {
+    public Table setPageNumber(int pageNumber) {
         this.pageNumber = pageNumber;
+        return this;
     }
 
     /**
@@ -1095,9 +1111,11 @@ public class Table extends AbstractControl implements Stateful {
      * Set the paginator for rendering the table pagination controls.
      *
      * @param value the table paginator to set
+     * @return this table
      */
-    public void setPaginator(Renderable value) {
+    public Table setPaginator(Renderable value) {
         paginator = value;
+        return this;
     }
 
     /**
@@ -1116,9 +1134,11 @@ public class Table extends AbstractControl implements Stateful {
      * <tt>[ PAGINATOR_ATTACHED | PAGINATOR_DETACHED | PAGINATOR_INLINE ]</tt>.
      *
      * @param value the table pagination attachment style
+     * @return this table
      */
-    public void setPaginatorAttachment(int value) {
+    public Table setPaginatorAttachment(int value) {
         paginatorAttachment = value;
+        return this;
     }
 
     /**
@@ -1126,9 +1146,11 @@ public class Table extends AbstractControl implements Stateful {
      * means there is no maximum page size.
      *
      * @param pageSize the maximum page size in rows
+     * @return this table
      */
-    public void setPageSize(int pageSize) {
+    public Table setPageSize(int pageSize) {
         this.pageSize = pageSize;
+        return this;
     }
 
     /**
@@ -1145,9 +1167,11 @@ public class Table extends AbstractControl implements Stateful {
      * Set the column render id attribute status.
      *
      * @param renderId set the column render id attribute status
+     * @return this table
      */
-    public void setRenderId(boolean renderId) {
+    public Table setRenderId(boolean renderId) {
         this.renderId = renderId;
+        return this;
     }
 
     /**
@@ -1159,7 +1183,6 @@ public class Table extends AbstractControl implements Stateful {
      *
      * @return the list of table rows
      */
-    @SuppressWarnings("unchecked")
     public List getRowList() {
         if (rowList == null) {
             rowList = createRowList();
@@ -1180,15 +1203,17 @@ public class Table extends AbstractControl implements Stateful {
      * at the end of each request.
      *
      * @param rowList the list of table rows to set
+     * @return this table
      */
     @SuppressWarnings("unchecked")
-    public void setRowList(List rowList) {
+    public Table setRowList(List rowList) {
         this.rowList = rowList;
         if (this.rowList == null) {
             this.rowCount = 0;
         } else {
             this.rowCount = this.rowList.size();
         }
+        return this;
     }
 
     /**
@@ -1206,9 +1231,11 @@ public class Table extends AbstractControl implements Stateful {
      * displayed.
      *
      * @param showBanner the show Table banner flag
+     * @return this table
      */
-    public void setShowBanner(boolean showBanner) {
+    public Table setShowBanner(boolean showBanner) {
         this.showBanner = showBanner;
+        return this;
     }
 
     /**
@@ -1225,9 +1252,11 @@ public class Table extends AbstractControl implements Stateful {
      * Set the table default column are sortable status.
      *
      * @param sortable the table default column are sortable status
+     * @return this table
      */
-    public void setSortable(boolean sortable) {
+    public Table setSortable(boolean sortable) {
         this.sortable = sortable;
+        return this;
     }
 
     /**
@@ -1243,9 +1272,11 @@ public class Table extends AbstractControl implements Stateful {
      * Set the sorted status of the table row list.
      *
      * @param value the sorted status to set
+     * @return this table
      */
-    public void setSorted(boolean value) {
+    public Table setSorted(boolean value) {
         sorted = value;
+        return this;
     }
 
     /**
@@ -1261,9 +1292,11 @@ public class Table extends AbstractControl implements Stateful {
      * Set the ascending sort order status.
      *
      * @param ascending the ascending sort order status
+     * @return this table
      */
-    public void setSortedAscending(boolean ascending) {
+    public Table setSortedAscending(boolean ascending) {
         sortedAscending = ascending;
+        return this;
     }
 
     /**
@@ -1279,9 +1312,11 @@ public class Table extends AbstractControl implements Stateful {
      * Set the name of the sorted column, or null if not defined.
      *
      * @param columnName the name of the sorted column
+     * @return this table
      */
-    public void setSortedColumn(String columnName) {
+    public Table setSortedColumn(String columnName) {
         sortedColumn = columnName;
+        return this;
     }
 
     /**
@@ -1375,9 +1410,11 @@ public class Table extends AbstractControl implements Stateful {
      * Set the table HTML &lt;td&gt; width attribute.
      *
      * @param value the table HTML &lt;td&gt; width attribute
+     * @return this table
      */
-    public void setWidth(String value) {
+    public Table setWidth(String value) {
         width = value;
+        return this;
     }
 
     // Public Methods ---------------------------------------------------------

@@ -241,9 +241,11 @@ public class SubmitLink extends ActionLink {
      * Set the SubmitLink Form.
      *
      * @param form the SubmitLink Form
+     * @return this link
      */
-    public void setForm(Form form) {
+    public SubmitLink setForm(Form form) {
         this.form = form;
+        return this;
     }
 
     /**
@@ -263,18 +265,22 @@ public class SubmitLink extends ActionLink {
      * Sets the button onclick attribute value.
      *
      * @param value the onclick attribute value.
+     * @return this link
      */
-    public void setOnClick(String value) {
+    public SubmitLink setOnClick(String value) {
         setAttribute("onclick", value);
+        return this;
     }
 
     /**
      * Set the parameter prefix that is applied to the SubmitLink parameters.
      *
      * @param prefix the parameter prefix
+     * @return this link
      */
-    public void setParameterPrefix(String prefix) {
+    public SubmitLink setParameterPrefix(String prefix) {
         this.parameterPrefix = prefix;
+        return this;
     }
 
     /**

@@ -218,9 +218,11 @@ public abstract class AutoCompleteTextField extends TextField {
      * {@link #setParameter(java.lang.String, java.lang.Object)} instead
      *
      * @param options the JavaScript Autocompleter initialization options
+     * @return this field
      */
-    public void setAutoCompleteOptions(String options) {
+    public AutoCompleteTextField setAutoCompleteOptions(String options) {
         this.autoCompleteOptions = options;
+        return this;
     }
 
     /**
@@ -262,13 +264,15 @@ public abstract class AutoCompleteTextField extends TextField {
      *
      * @param name the attribute name
      * @param value the attribute value
+     * @return this field
      */
-    public void setParameter(String name, Object value) {
+    public AutoCompleteTextField setParameter(String name, Object value) {
         if (value != null) {
             getParameters().put(name, value);
         } else {
             getParameters().remove(name);
         }
+        return this;
     }
 
     /**

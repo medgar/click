@@ -523,8 +523,9 @@ public class CheckList extends Field {
      * }); </pre>
      *
      * @param dataProvider the CheckList option list DataProvider
+     * @return this checklist
      */
-    public void setDataProvider(DataProvider<Option> dataProvider) {
+    public CheckList setDataProvider(DataProvider<Option> dataProvider) {
         this.dataProvider = dataProvider;
         if (dataProvider != null) {
             if (optionList != null) {
@@ -533,6 +534,7 @@ public class CheckList extends Field {
             }
             setOptionList(null);
         }
+        return this;
     }
 
     /**
@@ -591,9 +593,11 @@ public class CheckList extends Field {
      * If null no height is set and the CheckList is not scrollable.
      *
      * @param height one of css height values (ie 40px) or null.
+     * @return this checklist
      */
-    public void setHeight(String height) {
+    public CheckList setHeight(String height) {
         this.height = height;
+        return this;
     }
 
     /**
@@ -613,9 +617,11 @@ public class CheckList extends Field {
      * @deprecated use {@link #addStyleClass(String)} instead
      *
      * @param clazz the class to set or null
+     * @return this checklist
      */
-    public void setHtmlClass(String clazz) {
+    public CheckList setHtmlClass(String clazz) {
         addStyleClass(clazz);
+        return this;
     }
 
     /**
@@ -758,19 +764,24 @@ public class CheckList extends Field {
      * user.
      *
      * @param options a list of Option objects
+     * @return this checklist
      */
-    public void setOptionList(List<Option> options) {
+    public CheckList setOptionList(List<Option> options) {
         optionList = options;
+        return this;
     }
+
     /**
      * Whether the list should be drag-drop sortable. This is supported by
      * scriptaculous. Note when the list also has a size than this might not work
      * on different browsers.
      *
      * @param sortable default is false.
+     * @return this checklist
      */
-    public void setSortable(boolean sortable) {
+    public CheckList setSortable(boolean sortable) {
         this.sortable = sortable;
+        return this;
     }
 
     /**
@@ -826,9 +837,11 @@ public class CheckList extends Field {
      * @deprecated use {@link #setSelectedValues(List)} instead
      *
      * @param values a list of strings or null
+     * @return this checklist
      */
-    public void setValues(List<String> values) {
+    public CheckList setValues(List<String> values) {
         this.selectedValues = values;
+        return this;
     }
 
     /**
@@ -857,9 +870,11 @@ public class CheckList extends Field {
      * } </pre>
      *
      * @param selectedValues the list of selected string values or null
+     * @return this checklist
      */
-    public void setSelectedValues(List<String> selectedValues) {
+    public CheckList setSelectedValues(List<String> selectedValues) {
         this.selectedValues = selectedValues;
+        return this;
     }
 
     /**
@@ -887,13 +902,15 @@ public class CheckList extends Field {
      * @see #setSelectedValues(java.util.List)
      *
      * @param object a List of Strings
+     * @return this checklist
      */
     @SuppressWarnings("unchecked")
     @Override
-    public void setValueObject(Object object) {
+    public CheckList setValueObject(Object object) {
         if (object instanceof List<?>) {
             setSelectedValues((List<String>) object);
         }
+        return this;
     }
 
     /**

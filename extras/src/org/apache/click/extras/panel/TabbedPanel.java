@@ -264,13 +264,15 @@ public class TabbedPanel extends Panel implements Stateful {
      * deactivated.
      *
      * @param panel the panel to set as the current active panel
+     * @return this panel
      */
-    public void setActivePanel(Panel panel) {
+    public TabbedPanel setActivePanel(Panel panel) {
         if (activePanel != null) {
             activePanel.setActive(false);
         }
         activePanel = panel;
         activePanel.setActive(true);
+        return this;
     }
 
     /**
@@ -307,24 +309,28 @@ public class TabbedPanel extends Panel implements Stateful {
      *
      * @param listener the listener object with the named method to invoke
      * @param listenerMethod the name of the method to invoke
+     * @return this panel
      */
     @Override
-    public void setListener(Object listener, String listenerMethod) {
+    public TabbedPanel setListener(Object listener, String listenerMethod) {
         setTabListener(listener, listenerMethod);
+        return this;
     }
 
      /**
      * @see Control#setName(String)
      *
      * @param name of the control
+     * @return this panel
      * @throws IllegalArgumentException if the name is null
      */
     @Override
-    public void setName(String name) {
+    public TabbedPanel setName(String name) {
         super.setName(name);
         ActionLink localTabLink = getTabLink();
         localTabLink.setName("tabLink-" + getName());
         add(localTabLink);
+        return this;
     }
 
     /**
@@ -332,20 +338,24 @@ public class TabbedPanel extends Panel implements Stateful {
      *
      * @param listener the listener object with the named method to invoke
      * @param listenerMethod the name of the method to invoke
+     * @return this panel
      */
-    public void setTabListener(Object listener, String listenerMethod) {
+    public TabbedPanel setTabListener(Object listener, String listenerMethod) {
         this.listener = listener;
         this.listenerMethod = listenerMethod;
+        return this;
     }
 
     /**
      * This method will delegate to {@link #setTabListener(org.apache.click.ActionListener)}.
      *
      * @param actionListener the control's action listener
+     * @return this panel
      */
     @Override
-    public void setActionListener(ActionListener actionListener) {
+    public TabbedPanel setActionListener(ActionListener actionListener) {
         setTabListener(actionListener);
+        return this;
     }
 
     /**
@@ -430,9 +440,11 @@ public class TabbedPanel extends Panel implements Stateful {
      * } </pre>
      *
      * @param actionListener the control's action listener
+     * @return this panel
      */
-    public void setTabListener(ActionListener actionListener) {
+    public TabbedPanel setTabListener(ActionListener actionListener) {
         this.actionListener = actionListener;
+        return this;
     }
 
     /**
@@ -460,14 +472,16 @@ public class TabbedPanel extends Panel implements Stateful {
      * Set the tabbed panel content table HTML width attribute if defined.
      *
      * @param width the tabbed panel content table HTML width attribute
+     * @return this panel
      */
-    public void setWidth(String width) {
+    public TabbedPanel setWidth(String width) {
         if (width != null) {
             getModel().put("width", width);
 
         } else {
             getModel().remove("width");
         }
+        return this;
     }
 
     // --------------------------------------------------------- Public Methods

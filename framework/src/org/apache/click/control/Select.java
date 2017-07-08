@@ -684,9 +684,10 @@ public class Select extends Field {
      * }); </pre>
      *
      * @param dataProvider the select option list DataProvider
+     * @return this select
      */
     @SuppressWarnings("unchecked")
-    public void setDataProvider(DataProvider dataProvider) {
+    public Select setDataProvider(DataProvider dataProvider) {
         this.dataProvider = dataProvider;
         if (dataProvider != null) {
             if (optionList != null) {
@@ -695,6 +696,7 @@ public class Select extends Field {
             }
             setOptionList(null);
         }
+        return this;
     }
 
     /**
@@ -710,9 +712,11 @@ public class Select extends Field {
      * Set the number of the Select display rows.
      *
      * @param rows the Select display size in rows.
+     * @return this select
      */
-    public void setSize(int rows) {
+    public Select setSize(int rows) {
         size = rows;
+        return this;
     }
 
     /**
@@ -728,9 +732,11 @@ public class Select extends Field {
      * Set the multiple options can be selected flag.
      *
      * @param value the multiple options can be selected flag
+     * @return this select
      */
-    public void setMultiple(boolean value) {
+    public Select setMultiple(boolean value) {
         multiple = value;
+        return this;
     }
 
     /**
@@ -766,18 +772,22 @@ public class Select extends Field {
      * be removed in subsequent releases
      *
      * @param multipleValues the list of selected values
+     * @return this select
      */
-    public void setMultipleValues(List<String> multipleValues) {
+    public Select setMultipleValues(List<String> multipleValues) {
         this.selectedValues = multipleValues;
+        return this;
     }
 
     /**
      * Set the list of selected values.
      *
      * @param multipleValues the list of selected values
+     * @return this select
      */
-    public void setSelectedValues(List<String> multipleValues) {
+    public Select setSelectedValues(List<String> multipleValues) {
         this.selectedValues = multipleValues;
+        return this;
     }
 
     /**
@@ -816,9 +826,11 @@ public class Select extends Field {
      * } </pre>
      *
      * @param option the Select default option
+     * @return this select
      */
-    public void setDefaultOption(Option option) {
+    public Select setDefaultOption(Option option) {
         this.defaultOption = option;
+        return this;
     }
 
     /**
@@ -890,12 +902,14 @@ public class Select extends Field {
      * Set the Option list.
      *
      * @param options the Option list
+     * @return this select
      */
-    public void setOptionList(List options) {
+    public Select setOptionList(List options) {
         optionList = options;
         if (optionList != null) {
             setInitialValue();
         }
+        return this;
     }
 
     /**

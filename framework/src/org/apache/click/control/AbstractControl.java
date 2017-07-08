@@ -236,9 +236,11 @@ public abstract class AbstractControl implements Control {
      * Set the control's action listener.
      *
      * @param listener the control's action listener
+     * @return this control
      */
-    public void setActionListener(ActionListener listener) {
+    public AbstractControl setActionListener(ActionListener listener) {
         this.actionListener = listener;
+        return this;
     }
 
     /**
@@ -361,9 +363,10 @@ public abstract class AbstractControl implements Control {
      *
      * @param name the attribute name
      * @param value the attribute value
+     * @return this control
      * @throws IllegalArgumentException if name parameter is null
      */
-    public void setAttribute(String name, String value) {
+    public AbstractControl setAttribute(String name, String value) {
         if (name == null) {
             throw new IllegalArgumentException("Null name parameter");
         }
@@ -373,6 +376,7 @@ public abstract class AbstractControl implements Control {
         } else {
             getAttributes().remove(name);
         }
+        return this;
     }
 
     /**
@@ -428,13 +432,15 @@ public abstract class AbstractControl implements Control {
      * @see Control#setName(String)
      *
      * @param name of the control
+     * @return this control
      * @throws IllegalArgumentException if the name is null
      */
-    public void setName(String name) {
+    public AbstractControl setName(String name) {
         if (name == null) {
             throw new IllegalArgumentException("Null name parameter");
         }
         this.name = name;
+        return this;
     }
 
     /**
@@ -454,13 +460,15 @@ public abstract class AbstractControl implements Control {
      * Set the HTML id attribute for the control with the given value.
      *
      * @param id the element HTML id attribute value to set
+     * @return this control
      */
-    public void setId(String id) {
+    public AbstractControl setId(String id) {
         if (id != null) {
             setAttribute("id", id);
         } else {
             getAttributes().remove("id");
         }
+        return this;
     }
 
     /**
@@ -544,14 +552,16 @@ public abstract class AbstractControl implements Control {
      * @see org.apache.click.Control#setParent(Object)
      *
      * @param parent the parent of the Control
+     * @return this control
      * @throws IllegalArgumentException if the given parent instance is
      * referencing <tt>this</tt> object: <tt>if (parent == this)</tt>
      */
-    public void setParent(Object parent) {
+    public AbstractControl setParent(Object parent) {
         if (parent == this) {
             throw new IllegalArgumentException("Cannot set parent to itself");
         }
         this.parent = parent;
+        return this;
     }
 
    /**
@@ -583,10 +593,12 @@ public abstract class AbstractControl implements Control {
      *
      * @param listener the listener object with the named method to invoke
      * @param method the name of the method to invoke
+     * @return this control
      */
-    public void setListener(Object listener, String method) {
+    public AbstractControl setListener(Object listener, String method) {
         this.listener = listener;
         this.listenerMethod = method;
+        return this;
     }
 
     /**
@@ -694,8 +706,9 @@ public abstract class AbstractControl implements Control {
      *
      * @param name the CSS style name
      * @param value the CSS style value
+     * @return this control
      */
-    public void setStyle(String name, String value) {
+    public AbstractControl setStyle(String name, String value) {
         if (name == null) {
             throw new IllegalArgumentException("Null name parameter");
         }
@@ -706,11 +719,11 @@ public abstract class AbstractControl implements Control {
 
             if (value == null) {
                 //Exit early
-                return;
+                return this;
             } else {
                 //If value is not null, append the new style and return
                 getAttributes().put("style", name + ":" + value + ";");
-                return;
+                return this;
             }
         }
 
@@ -738,7 +751,7 @@ public abstract class AbstractControl implements Control {
         //The styles map might be empty if the last style was removed
         if (stylesMap.isEmpty()) {
             getAttributes().remove("style");
-            return;
+            return this;
         }
 
         //Iterate over the stylesMap appending each entry to buffer
@@ -751,6 +764,8 @@ public abstract class AbstractControl implements Control {
             buffer.append(";");
         }
         getAttributes().put("style", buffer.toString());
+
+        return this;
     }
 
     /**

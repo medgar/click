@@ -205,9 +205,11 @@ public class FileField extends Field {
      * Set the field size.
      *
      * @param  size the field size
+     * @return this field
      */
-    public void setSize(int size) {
+    public FileField setSize(int size) {
         this.size = size;
+        return this;
     }
 
     /**

@@ -486,9 +486,11 @@ public class Panel extends AbstractContainer {
      * is their action event fired.
      *
      * @param disabled the disabled flag
+     * @return this panel
      */
-    public void setDisabled(boolean disabled) {
+    public Panel setDisabled(boolean disabled) {
         this.disabled = disabled;
+        return this;
     }
 
     /**
@@ -508,9 +510,11 @@ public class Panel extends AbstractContainer {
      * ({@link #onInit()}, {@link #onProcess()}, {@link #onRender()}) processed.
      *
      * @param active the active flag
+     * @return this panel
      */
-    public void setActive(boolean active) {
+    public Panel setActive(boolean active) {
         this.active = active;
+        return this;
     }
 
     /**
@@ -561,10 +565,12 @@ public class Panel extends AbstractContainer {
      * to the 'id' tag for this panel's model.
      *
      * @param id the id attribute for this panel
+     * @return this control
      */
     @Override
-    public void setId(String id) {
+    public Panel setId(String id) {
         this.id = id;
+        return this;
     }
 
     /**
@@ -605,9 +611,11 @@ public class Panel extends AbstractContainer {
      * Set the Panel display caption.
      *
      * @param label the display label of the Panel
+     * @return this panel
      */
-    public void setLabel(String label) {
+    public Panel setLabel(String label) {
         this.label = label;
+        return this;
     }
 
     /**
@@ -674,9 +682,11 @@ public class Panel extends AbstractContainer {
      * Set the path of the template to render.
      *
      * @param template the path of the template to render
+     * @return this panel
      */
-    public void setTemplate(String template) {
+    public Panel setTemplate(String template) {
         this.template = template;
+        return this;
     }
 
     // Public Methods ---------------------------------------------------------

@@ -488,9 +488,11 @@ public class LinkDecorator implements Decorator, Serializable {
      * Set the link separator string with the given value.
      *
      * @param value the link separator string value
+     * @return this link
      */
-    public void setLinkSeparator(String value) {
+    public LinkDecorator setLinkSeparator(String value) {
         this.linkSeparator = value;
+        return this;
     }
 
     // --------------------------------------------------------- Public Methods

@@ -161,9 +161,11 @@ public class PageLink extends AbstractLink {
      * @see org.apache.click.control.AbstractControl#setActionListener(org.apache.click.ActionListener)
      *
      * @param listener the listener to invoke
+     * @return this link
      */
     @Override
-    public void setActionListener(ActionListener listener) {
+    public PageLink setActionListener(ActionListener listener) {
+        return this;
     }
 
     /**
@@ -173,9 +175,11 @@ public class PageLink extends AbstractLink {
      *
      * @param listener the listener object with the named method to invoke
      * @param method the name of the method to invoke
+     * @return this link
      */
     @Override
-    public void setListener(Object listener, String method) {
+    public PageLink setListener(Object listener, String method) {
+        return this;
     }
 
     /**
@@ -192,9 +196,11 @@ public class PageLink extends AbstractLink {
      * to the path of the target page.
      *
      * @param targetPage the target Page class
+     * @return this link
      */
-    public void setPageClass(Class<? extends Page> targetPage) {
+    public PageLink setPageClass(Class<? extends Page> targetPage) {
         pageClass = targetPage;
+        return this;
     }
 
     // --------------------------------------------------------- Public Methods

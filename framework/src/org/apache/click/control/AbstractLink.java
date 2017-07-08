@@ -24,11 +24,11 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.click.Context;
 import org.apache.click.Stateful;
 import org.apache.click.util.ClickUtils;
 import org.apache.click.util.HtmlStringBuffer;
-
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -125,9 +125,11 @@ public abstract class AbstractLink extends AbstractControl implements Stateful {
      * &lt;span&gt; element with a HTML class attribute of "disabled".
      *
      * @param disabled the disabled flag
+     * @return this link
      */
-    public void setDisabled(boolean disabled) {
+    public AbstractLink setDisabled(boolean disabled) {
         this.disabled = disabled;
+        return this;
     }
 
     /**
@@ -169,9 +171,11 @@ public abstract class AbstractLink extends AbstractControl implements Stateful {
      * unless the {@link #setRenderLabelAndImage(boolean)} flag is set to true.
      *
      * @param src the image src path attribute
+     * @return this link
      */
-    public void setImageSrc(String src) {
+    public AbstractLink setImageSrc(String src) {
         this.imageSrc = src;
+        return this;
     }
 
     /**
@@ -262,9 +266,11 @@ public abstract class AbstractLink extends AbstractControl implements Stateful {
      * @see #getLabel()
      *
      * @param label the label for the ActionLink
+     * @return this link
      */
-    public void setLabel(String label) {
+    public AbstractLink setLabel(String label) {
         this.label = label;
+        return this;
     }
 
     /**
@@ -319,9 +325,10 @@ public abstract class AbstractLink extends AbstractControl implements Stateful {
      *
      * @param name the attribute name
      * @param value the attribute value
+     * @return this link
      * @throws IllegalArgumentException if name parameter is null
      */
-    public void setParameter(String name, Object value) {
+    public AbstractLink setParameter(String name, Object value) {
         if (name == null) {
             throw new IllegalArgumentException("Null name parameter");
         }
@@ -331,6 +338,7 @@ public abstract class AbstractLink extends AbstractControl implements Stateful {
         } else {
             getParameters().remove(name);
         }
+        return this;
     }
 
     /**
@@ -364,9 +372,10 @@ public abstract class AbstractLink extends AbstractControl implements Stateful {
      *
      * @param name the attribute name
      * @param values the attribute values
+     * @return this link
      * @throws IllegalArgumentException if name parameter is null
      */
-    public void setParameterValues(String name, Object[] values) {
+    public AbstractLink setParameterValues(String name, Object[] values) {
         if (name == null) {
             throw new IllegalArgumentException("Null name parameter");
         }
@@ -376,6 +385,7 @@ public abstract class AbstractLink extends AbstractControl implements Stateful {
         } else {
             getParameters().remove(name);
         }
+        return this;
     }
 
     /**
@@ -394,9 +404,11 @@ public abstract class AbstractLink extends AbstractControl implements Stateful {
      * Set the AbstractLink parameter map.
      *
      * @param parameters the link parameter map
+     * @return this link
      */
-    public void setParameters(Map parameters) {
+    public AbstractLink setParameters(Map<String, Object> parameters) {
         this.parameters = parameters;
+        return this;
     }
 
     /**
@@ -448,9 +460,11 @@ public abstract class AbstractLink extends AbstractControl implements Stateful {
      * Set the link "tabindex" attribute value.
      *
      * @param tabindex the link "tabindex" attribute value
+     * @return this link
      */
-    public void setTabIndex(int tabindex) {
+    public AbstractLink setTabIndex(int tabindex) {
         this.tabindex = tabindex;
+        return this;
     }
 
     /**
@@ -498,9 +512,11 @@ public abstract class AbstractLink extends AbstractControl implements Stateful {
      * @see #getTitle()
      *
      * @param value the 'title' attribute tooltip message
+     * @return this link
      */
-    public void setTitle(String value) {
+    public AbstractLink setTitle(String value) {
         title = value;
+        return this;
     }
 
     /**
@@ -520,10 +536,12 @@ public abstract class AbstractLink extends AbstractControl implements Stateful {
      * {@link #setImageSrc(java.lang.String) icon} are rendered for this
      * link.
      *
-     * @param renderLabelAndImage sets the rendering type of the link.
+     * @param renderLabelAndImage sets the rendering type of the link
+     * @return this link
      */
-    public void setRenderLabelAndImage(boolean renderLabelAndImage) {
+    public AbstractLink setRenderLabelAndImage(boolean renderLabelAndImage) {
         this.renderLabelAndImage = renderLabelAndImage;
+        return this;
     }
 
     @Override

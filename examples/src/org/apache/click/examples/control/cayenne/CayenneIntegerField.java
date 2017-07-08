@@ -50,11 +50,13 @@ public class CayenneIntegerField extends IntegerField {
      * object is null. If it is we return without changing the value object.
      *
      * @param object the object value to set
+     * @return this field
      */
-    public void setValueObject(Object object) {
+    public CayenneIntegerField setValueObject(Object object) {
         if (object == null) {
-            return;
+            return this;
         }
         super.setValueObject(object);
+        return this;
     }
 }

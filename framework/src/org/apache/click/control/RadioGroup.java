@@ -329,9 +329,10 @@ public class RadioGroup extends Field {
      * @see Field#setForm(Form)
      *
      * @param form Field's parent <tt>Form</tt>
+     * @return this field
      */
     @Override
-    public void setForm(Form form) {
+    public RadioGroup setForm(Form form) {
         super.setForm(form);
         if (hasRadios()) {
             for (int i = 0, size = getRadioList().size(); i < size; i++) {
@@ -339,6 +340,7 @@ public class RadioGroup extends Field {
                 radio.setForm(getForm());
             }
         }
+        return this;
     }
 
     /**
@@ -354,9 +356,11 @@ public class RadioGroup extends Field {
      * Set the vertical radio control layout flag.
      *
      * @param vertical the vertical layout flag
+     * @return this radio group
      */
-    public void setVerticalLayout(boolean vertical) {
+    public RadioGroup setVerticalLayout(boolean vertical) {
         isVerticalLayout = vertical;
+        return this;
     }
 
     /**

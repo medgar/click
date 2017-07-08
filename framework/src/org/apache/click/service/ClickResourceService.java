@@ -280,25 +280,25 @@ public class ClickResourceService implements ResourceService {
         }
 
         if (inputStream == null) {
-        	return null;
+            return null;
         }
-        
-    	try {
-    		byte[] resourceData = IOUtils.toByteArray(inputStream);
 
-    		ClickUtils.close(inputStream);
+        try {
+            byte[] resourceData = IOUtils.toByteArray(inputStream);
 
-    		return resourceData;
+            ClickUtils.close(inputStream);
 
-    	} catch (IOException ioe) {
-    		ClickUtils.close(inputStream);
-    		return null;
+            return resourceData;
 
-    	} catch (NullPointerException npe) {
-    		// Catch NPE which can occur with attempting to load
-    		// directory paths
-    		return null;
-    	}
+        } catch (IOException ioe) {
+            ClickUtils.close(inputStream);
+            return null;
+
+        } catch (NullPointerException npe) {
+            // Catch NPE which can occur with attempting to load
+            // directory paths
+            return null;
+        }
     }
 
     /**

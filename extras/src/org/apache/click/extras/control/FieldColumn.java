@@ -143,9 +143,11 @@ public class FieldColumn extends Column {
      * Set the column editor field.
      *
      * @param field the column editor field
+     * @return this field column
      */
-    public void setField(Field field) {
+    public FieldColumn setField(Field field) {
         this.field = field;
+        return this;
     }
 
     /**
@@ -166,10 +168,11 @@ public class FieldColumn extends Column {
      * @param row the row object to obtain the property from
      * @param propertyName the name of the property
      * @param value the row object property value
+     * @return this field column
      * @throws RuntimeException if an error occurred obtaining the property
      */
     @SuppressWarnings("unchecked")
-    public void setProperty(Object row, String propertyName, Object value) {
+    public FieldColumn setProperty(Object row, String propertyName, Object value) {
         if (row instanceof Map<?, ?>) {
             Map<Object, Object> map = (Map<Object, Object>) row;
             if (map.containsKey(propertyName)) {
@@ -181,6 +184,7 @@ public class FieldColumn extends Column {
             PropertyService propertyService = configService.getPropertyService();
             propertyService.setValue(row, propertyName, value);
         }
+        return this;
     }
 
     // ------------------------------------------------------ Protected Methods

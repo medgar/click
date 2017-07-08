@@ -116,8 +116,10 @@ public class ExternalLink extends AbstractLink {
      * @see org.apache.click.control.AbstractControl#setActionListener(org.apache.click.ActionListener)
      *
      * @param listener the listener to invoke
+     * @return this link
      */
-    public void setActionListener(ActionListener listener) {
+    public ExternalLink setActionListener(ActionListener listener) {
+        return this;
     }
 
     /**
@@ -127,8 +129,10 @@ public class ExternalLink extends AbstractLink {
      *
      * @param listener the listener object with the named method to invoke
      * @param method the name of the method to invoke
+     * @return this link
      */
-    public void setListener(Object listener, String method) {
+    public ExternalLink setListener(Object listener, String method) {
+        return this;
     }
 
     /**
@@ -144,9 +148,11 @@ public class ExternalLink extends AbstractLink {
      * Set the link href target path.
      *
      * @param targetPath the link href target path
+     * @return this link
      */
-    public void setTargetPath(String targetPath) {
+    public ExternalLink setTargetPath(String targetPath) {
         this.targetPath = targetPath;
+        return this;
     }
 
     // --------------------------------------------------------- Public Methods

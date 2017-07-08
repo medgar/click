@@ -212,13 +212,15 @@ public class TextField extends Field {
      * Set the input field HTML5 autocomplete status.
      *
      * @param autocomplete set HTML5 autocomplete enabled status
+     * @return this text field
      */
-    public void setAutocomplete(boolean autocomplete) {
+    public TextField setAutocomplete(boolean autocomplete) {
         if (autocomplete) {
             setAttribute("autocomplete", "on");
         } else {
             setAttribute("autocomplete", "off");
         }
+        return this;
     }
 
     /**
@@ -256,9 +258,11 @@ public class TextField extends Field {
      * attribute 'maxlength'
      *
      * @param maxLength the maximum field length validation constraint
+     * @return this text field
      */
-    public void setMaxLength(int maxLength) {
+    public TextField setMaxLength(int maxLength) {
         this.maxLength = maxLength;
+        return this;
     }
 
     /**
@@ -278,9 +282,11 @@ public class TextField extends Field {
      * will be validated against this constraint when processed.
      *
      * @param minLength the minimum field length validation constraint
+     * @return this text field
      */
-    public void setMinLength(int minLength) {
+    public TextField setMinLength(int minLength) {
         this.minLength = minLength;
+        return this;
     }
 
     /**
@@ -308,9 +314,11 @@ public class TextField extends Field {
      * Set the input field HTML5 placeholder attribute.
      *
      * @param value the input field HTML5 placeholder attribute.
+     * @return this text field
      */
-    public void setPlaceholder(String value) {
+    public TextField setPlaceholder(String value) {
         this.placeholder = value;
+        return this;
     }
 
     /**
@@ -326,9 +334,11 @@ public class TextField extends Field {
      * Set the field size.
      *
      * @param  size the field size
+     * @return this text field
      */
-    public void setSize(int size) {
+    public TextField setSize(int size) {
         this.size = size;
+        return this;
     }
 
     /**

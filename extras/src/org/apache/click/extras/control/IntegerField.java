@@ -173,13 +173,15 @@ public class IntegerField extends NumberField {
      * Set the Integer value of the field.
      *
      * @param integerValue the field integer value to set
+     * @return this field
      */
-    public void setInteger(Integer integerValue) {
+    public IntegerField setInteger(Integer integerValue) {
         if (integerValue != null) {
             setValue(integerValue.toString());
         } else {
             setValue(null);
         }
+        return this;
     }
 
     /**
@@ -216,15 +218,17 @@ public class IntegerField extends NumberField {
      * @see org.apache.click.control.Field#setValueObject(Object)
      *
      * @param object the object value to set
+     * @return this field
      */
     @Override
-    public void setValueObject(Object object) {
+    public IntegerField setValueObject(Object object) {
         if (object != null) {
             setValue(object.toString());
 
         } else {
             setValue(null);
         }
+        return this;
     }
 
     // --------------------------------------------------------- Public Methods

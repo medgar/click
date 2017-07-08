@@ -203,11 +203,13 @@ public class RegexField extends TextField {
      * Sets the field pattern as regular expression.
      *
      * @param pattern the field regular expression pattern
+     * @return this field
      * @throws java.util.regex.PatternSyntaxException if the regular expression pattern cannot be compiled
      */
-    public void setPattern(String pattern) {
+    public RegexField setPattern(String pattern) {
         Pattern.compile(pattern);
         this.pattern = pattern;
+        return this;
     }
 
     /**

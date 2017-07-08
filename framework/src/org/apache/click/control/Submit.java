@@ -144,13 +144,15 @@ public class Submit extends Button {
      * by pressing this button.
      *
      * @param cancel the cancel JavaScript form validation flag
+     * @return this submit
      */
-    public void setCancelJavaScriptValidation(boolean cancel) {
+    public Submit setCancelJavaScriptValidation(boolean cancel) {
         if (cancel) {
             setAttribute("onclick", "form.onsubmit=null;");
         } else {
             setAttribute("onclick", null);
         }
+        return this;
     }
 
     /**

@@ -150,9 +150,11 @@ public class CountrySelect extends Select {
      * @see org.apache.click.Context#getLocale()
      *
      * @param locale the locale to set for this control
+     * @return this select
      */
-    public void setLocale(Locale locale) {
+    public CountrySelect setLocale(Locale locale) {
         this.locale = locale;
+        return this;
     }
  
     // Public Methods ---------------------------------------------------------

@@ -284,9 +284,11 @@ public abstract class Field extends AbstractControl implements Stateful {
      * Set the field HTML5 autofocus attribute.
      *
      * @param autofocus the field HTML5 autofocus attribute
+     * @return this field
      */
-    public void setAutofocus(boolean autofocus) {
+    public Field setAutofocus(boolean autofocus) {
         setFocus(autofocus);
+        return this;
     }
 
     /**
@@ -295,12 +297,13 @@ public abstract class Field extends AbstractControl implements Stateful {
      * @see org.apache.click.Control#setParent(Object)
      *
      * @param parent the parent of the Control
+     * @return this control
      * @throws IllegalStateException if {@link #name} is not defined
      * @throws IllegalArgumentException if the given parent instance is
      * referencing <tt>this</tt> object: <tt>if (parent == this)</tt>
      */
     @Override
-    public void setParent(Object parent) {
+    public Field setParent(Object parent) {
         if (parent == this) {
             throw new IllegalArgumentException("Cannot set parent to itself");
         }
@@ -311,6 +314,7 @@ public abstract class Field extends AbstractControl implements Stateful {
             throw new IllegalArgumentException(msg);
         }
         this.parent = parent;
+        return this;
     }
 
     /**
@@ -366,9 +370,11 @@ public abstract class Field extends AbstractControl implements Stateful {
      * or unchecked.
      *
      * @param disabled the Field disabled flag
+     * @return this field
      */
-    public void setDisabled(boolean disabled) {
+    public Field setDisabled(boolean disabled) {
         this.disabled = disabled;
+        return this;
     }
 
     /**
@@ -386,9 +392,11 @@ public abstract class Field extends AbstractControl implements Stateful {
      * the Field is invalid, otherwise it is valid.
      *
      * @param error the validation error message
+     * @return this field
      */
-    public void setError(String error) {
+    public Field setError(String error) {
         this.error = error;
+        return this;
     }
 
     /**
@@ -404,9 +412,11 @@ public abstract class Field extends AbstractControl implements Stateful {
      * Set the Field request focus flag.
      *
      * @param focus the request focus flag
+     * @return this field
      */
-    public void setFocus(boolean focus) {
+    public Field setFocus(boolean focus) {
         this.focus = focus;
+        return this;
     }
 
     /**
@@ -442,9 +452,11 @@ public abstract class Field extends AbstractControl implements Stateful {
      * Set the Field's the parent <tt>Form</tt>.
      *
      * @param form Field's parent <tt>Form</tt>
+     * @return this field
      */
-    public void setForm(Form form) {
+    public Field setForm(Form form) {
         this.form = form;
+        return this;
     }
 
     /**
@@ -501,9 +513,11 @@ public abstract class Field extends AbstractControl implements Stateful {
      * Set the Field help text.
      *
      * @param help the help text of the Field
+     * @return this field
      */
-    public void setHelp(String help) {
+    public Field setHelp(String help) {
         this.help = help;
+        return this;
     }
 
     /**
@@ -623,9 +637,11 @@ public abstract class Field extends AbstractControl implements Stateful {
      * Set the Field display caption.
      *
      * @param label the display label of the Field
+     * @return this field
      */
-    public void setLabel(String label) {
+    public Field setLabel(String label) {
         this.label = label;
+        return this;
     }
 
     /**
@@ -650,9 +666,11 @@ public abstract class Field extends AbstractControl implements Stateful {
      * nameField.setLabelStyle("color: green; font-weight: bold");</pre>
      *
      * @param value the field label "style" attribute value
+     * @return this field
      */
-    public void setLabelStyle(String value) {
+    public Field setLabelStyle(String value) {
         this.labelStyle = value;
+        return this;
     }
 
     /**
@@ -674,9 +692,11 @@ public abstract class Field extends AbstractControl implements Stateful {
      * (or container) on how to apply the label style class.
      *
      * @param value the field label "class" attribute value
+     * @return this field
      */
-    public void setLabelStyleClass(String value) {
+    public Field setLabelStyleClass(String value) {
         this.labelStyleClass = value;
+        return this;
     }
 
     /**
@@ -703,9 +723,11 @@ public abstract class Field extends AbstractControl implements Stateful {
      * containing the field and label.
      *
      * @param styleHint the field's parent "style" attribute hint
+     * @return this field
      */
-    public void setParentStyleHint(String styleHint) {
+    public Field setParentStyleHint(String styleHint) {
         this.parentStyleHint = styleHint;
+        return this;
     }
 
     /**
@@ -729,9 +751,11 @@ public abstract class Field extends AbstractControl implements Stateful {
      * containing the field and label.
      *
      * @param styleClassHint the field parent "class" attribute hint
+     * @return this field
      */
-    public void setParentStyleClassHint(String styleClassHint) {
+    public Field setParentStyleClassHint(String styleClassHint) {
         this.parentStyleClassHint = styleClassHint;
+        return this;
     }
 
     /**
@@ -743,10 +767,12 @@ public abstract class Field extends AbstractControl implements Stateful {
      *
      * @param listener the listener object with the named method to invoke
      * @param method the name of the method to invoke
+     * @return this control
      */
     @Override
-    public void setListener(Object listener, String method) {
+    public Field setListener(Object listener, String method) {
         super.setListener(listener, method);
+        return this;
     }
 
     /**
@@ -784,9 +810,11 @@ public abstract class Field extends AbstractControl implements Stateful {
      * Set the Field readonly flag.
      *
      * @param readonly the Field readonly flag
+     * @return this field
      */
-    public void setReadonly(boolean readonly) {
+    public Field setReadonly(boolean readonly) {
         this.readonly = readonly;
+        return this;
     }
 
     /**
@@ -802,9 +830,11 @@ public abstract class Field extends AbstractControl implements Stateful {
      * Set the Field required status.
      *
      * @param required set the Field required status
+     * @return this field
      */
-    public void setRequired(boolean required) {
+    public Field setRequired(boolean required) {
         this.required = required;
+        return this;
     }
 
     /**
@@ -820,9 +850,11 @@ public abstract class Field extends AbstractControl implements Stateful {
      * Set the field "tabindex" attribute value.
      *
      * @param tabindex the field "tabindex" attribute value
+     * @return this field
      */
-    public void setTabIndex(int tabindex) {
+    public Field setTabIndex(int tabindex) {
         this.tabindex = tabindex;
+        return this;
     }
 
     /**
@@ -838,9 +870,11 @@ public abstract class Field extends AbstractControl implements Stateful {
      * Set the field CSS horizontal "text-align" style.
      *
      * @param align the CSS "text-align" value: <tt>["left", "right", "center"]</tt>
+     * @return this field
      */
-    public void setTextAlign(String align) {
+    public Field setTextAlign(String align) {
         setStyle("text-align", align);
+        return this;
     }
 
     /**
@@ -888,9 +922,11 @@ public abstract class Field extends AbstractControl implements Stateful {
      * Set the 'title' attribute tooltip message.
      *
      * @param value the 'title' attribute tooltip message
+     * @return this field
      */
-    public void setTitle(String value) {
+    public Field setTitle(String value) {
         title = value;
+        return this;
     }
 
     /**
@@ -909,9 +945,11 @@ public abstract class Field extends AbstractControl implements Stateful {
      *
      * @param trim true if the Field request value should be trimmed, false
      * otherwise
+     * @return this field
      */
-    public void setTrim(boolean trim) {
+    public Field setTrim(boolean trim) {
         this.trim = trim;
+        return this;
     }
 
     /**
@@ -943,9 +981,11 @@ public abstract class Field extends AbstractControl implements Stateful {
      * Set the validate Field value when being processed flag.
      *
      * @param validate the field value when processed
+     * @return this field
      */
-    public void setValidate(boolean validate) {
+    public Field setValidate(boolean validate) {
         this.validate = validate;
+        return this;
     }
 
     /**
@@ -986,9 +1026,11 @@ public abstract class Field extends AbstractControl implements Stateful {
      * Set the Field value.
      *
      * @param value the Field value
+     * @return this field
      */
-    public void setValue(String value) {
+    public Field setValue(String value) {
         this.value = value;
+        return this;
     }
 
     /**
@@ -1014,11 +1056,13 @@ public abstract class Field extends AbstractControl implements Stateful {
      * Set the value of the field using the given object.
      *
      * @param object the object value to set
+     * @return this field
      */
-    public void setValueObject(Object object) {
+    public Field setValueObject(Object object) {
         if (object != null) {
             value = object.toString();
         }
+        return this;
     }
 
     /**
@@ -1034,9 +1078,11 @@ public abstract class Field extends AbstractControl implements Stateful {
      * Set the the CSS "width" style attribute.
      *
      * @param value the CSS "width" style attribute
+     * @return this field
      */
-    public void setWidth(String value) {
+    public Field setWidth(String value) {
         setStyle("width", value);
+        return this;
     }
 
     // Public Methods ---------------------------------------------------------
@@ -1061,6 +1107,7 @@ public abstract class Field extends AbstractControl implements Stateful {
      * </ul>
      *
      * @return the Field state
+     * @see Stateful#getState()
      */
     public Object getState() {
         String state = getValue();
@@ -1074,6 +1121,7 @@ public abstract class Field extends AbstractControl implements Stateful {
      * Set the Field state.
      *
      * @param state the Field state to set
+     * @see Stateful#setState(Object)
      */
     public void setState(Object state) {
         if (state == null) {

@@ -1138,9 +1138,11 @@ public class Form extends AbstractContainer implements Stateful {
      * action URL to "<tt>j_security_check</tt>".
      *
      * @param value the form "action" attribute URL value
+     * @return this form
      */
-    public void setActionURL(String value) {
+    public Form setActionURL(String value) {
         this.actionURL = value;
+        return this;
     }
 
     /**
@@ -1166,9 +1168,11 @@ public class Form extends AbstractContainer implements Stateful {
      * Set the form disabled flag.
      *
      * @param disabled the form disabled flag
+     * @return this form
      */
-    public void setDisabled(boolean disabled) {
+    public Form setDisabled(boolean disabled) {
         this.disabled = disabled;
+        return this;
     }
 
     /**
@@ -1192,9 +1196,11 @@ public class Form extends AbstractContainer implements Stateful {
      * Set the form "enctype" attribute value.
      *
      * @param enctype the form "enctype" attribute value, or null if not defined
+     * @return this form
      */
-    public void setEnctype(String enctype) {
+    public Form setEnctype(String enctype) {
         this.enctype = enctype;
+        return this;
     }
 
     /**
@@ -1211,9 +1217,11 @@ public class Form extends AbstractContainer implements Stateful {
      * null the form is invalid.
      *
      * @param error the validation error message
+     * @return this form
      */
-    public void setError(String error) {
+    public Form setError(String error) {
         this.error = error;
+        return this;
     }
 
     /**
@@ -1306,9 +1314,11 @@ public class Form extends AbstractContainer implements Stateful {
      * Set the form method <tt>["post" | "get"]</tt>.
      *
      * @param value the form method
+     * @return this form
      */
-    public void setMethod(String value) {
+    public Form setMethod(String value) {
         method = value;
+        return this;
     }
 
     /**
@@ -1345,10 +1355,11 @@ public class Form extends AbstractContainer implements Stateful {
      * @see org.apache.click.Control#setName(String)
      *
      * @param name of the control
+     * @return this form
      * @throws IllegalArgumentException if the name is null
      */
     @Override
-    public void setName(String name) {
+    public Form setName(String name) {
         if (name == null) {
             throw new IllegalArgumentException("Null name parameter");
         }
@@ -1363,6 +1374,7 @@ public class Form extends AbstractContainer implements Stateful {
             insertIndexOffset++;
         }
         nameField.setValue(name);
+        return this;
     }
 
     /**
@@ -1378,9 +1390,11 @@ public class Form extends AbstractContainer implements Stateful {
      * Set the form readonly flag.
      *
      * @param readonly the form readonly flag
+     * @return this form
      */
-    public void setReadonly(boolean readonly) {
+    public Form setReadonly(boolean readonly) {
         this.readonly = readonly;
+        return this;
     }
 
     /**
@@ -1447,9 +1461,11 @@ public class Form extends AbstractContainer implements Stateful {
      * themselves when their <tt>onProcess()</tt> method is invoked.
      *
      * @param validate the Form field validation flag
+     * @return this form
      */
-    public void setValidate(boolean validate) {
+    public Form setValidate(boolean validate) {
         this.validate = validate;
+        return this;
     }
 
     /**
@@ -1468,9 +1484,11 @@ public class Form extends AbstractContainer implements Stateful {
      * Note the given align is not validated.
      *
      * @param align the field label HTML horizontal alignment
+     * @return this form
      */
-    public void setButtonAlign(String align) {
+    public Form setButtonAlign(String align) {
         buttonAlign = align;
+        return this;
     }
 
     /**
@@ -1499,9 +1517,11 @@ public class Form extends AbstractContainer implements Stateful {
      * Set the button &lt;td&gt; "style" attribute value.
      *
      * @param value the button &lt;td&gt; "style" attribute value
+     * @return this form
      */
-    public void setButtonStyle(String value) {
+    public Form setButtonStyle(String value) {
         this.buttonStyle = value;
+        return this;
     }
 
     /**
@@ -1519,9 +1539,11 @@ public class Form extends AbstractContainer implements Stateful {
      * layout the number of table columns the form is rendered with.
      *
      * @param columns the number of form layout table columns
+     * @return this form
      */
-    public void setColumns(int columns) {
+    public Form setColumns(int columns) {
         this.columns = columns;
+        return this;
     }
 
     /**
@@ -1542,9 +1564,11 @@ public class Form extends AbstractContainer implements Stateful {
      * please use the separate <code>defaultFieldStyleClass</code>.
      *
      * @param styleClass the default form field CSS style class
+     * @return this form
      */
-    public void setDefaultButtonStyleClass(String styleClass) {
+    public Form setDefaultButtonStyleClass(String styleClass) {
         this.defaultButtonStyleClass = styleClass;
+        return this;
     }
 
     /**
@@ -1564,9 +1588,11 @@ public class Form extends AbstractContainer implements Stateful {
      * be set to the default value.
      *
      * @param size the default field size
+     * @return this form
      */
-    public void setDefaultFieldSize(int size) {
+    public Form setDefaultFieldSize(int size) {
         this.defaultFieldSize = size;
+        return this;
     }
 
     /**
@@ -1587,9 +1613,11 @@ public class Form extends AbstractContainer implements Stateful {
      * please use the separate <code>defaultButtonStyleClass</code>.
      *
      * @param styleClass the default form field CSS style class
+     * @return this form
      */
-    public void setDefaultFieldStyleClass(String styleClass) {
+    public Form setDefaultFieldStyleClass(String styleClass) {
         this.defaultFieldStyleClass = styleClass;
+        return this;
     }
 
     /**
@@ -1610,9 +1638,11 @@ public class Form extends AbstractContainer implements Stateful {
      * class to the field label.
      *
      * @param styleClass the default form field label CSS style class
+     * @return this form
      */
-    public void setDefaultLabelStyleClass(String styleClass) {
+    public Form setDefaultLabelStyleClass(String styleClass) {
         this.defaultLabelStyleClass = styleClass;
+        return this;
     }
 
     /**
@@ -1631,9 +1661,11 @@ public class Form extends AbstractContainer implements Stateful {
      * Note the given align is not validated.
      *
      * @param align the errors block HTML horizontal alignment
+     * @return this form
      */
-    public void setErrorsAlign(String align) {
+    public Form setErrorsAlign(String align) {
         errorsAlign = align;
+        return this;
     }
 
     /**
@@ -1649,8 +1681,9 @@ public class Form extends AbstractContainer implements Stateful {
      * Set the form errors position <tt>["top", "middle", "bottom"]</tt>.
      *
      * @param position the form errors position
+     * @return this form
      */
-    public void setErrorsPosition(String position) {
+    public Form setErrorsPosition(String position) {
         if (POSITION_TOP.equals(position)
             || POSITION_MIDDLE.equals(position)
             || POSITION_BOTTOM.equals(position)) {
@@ -1660,6 +1693,7 @@ public class Form extends AbstractContainer implements Stateful {
         } else {
             throw new IllegalArgumentException("Invalid position: " + position);
         }
+        return this;
     }
 
     /**
@@ -1675,9 +1709,11 @@ public class Form extends AbstractContainer implements Stateful {
      * Set the errors &lt;td&gt; "style" attribute value.
      *
      * @param value the errors &lt;td&gt; "style" attribute value
+     * @return this form
      */
-    public void setErrorsStyle(String value) {
+    public Form setErrorsStyle(String value) {
         this.errorsStyle = value;
+        return this;
     }
 
     /**
@@ -1697,9 +1733,11 @@ public class Form extends AbstractContainer implements Stateful {
      * @see Field#setParentStyleClassHint(java.lang.String)
      *
      * @param value the field &lt;td&gt; "style" attribute value
+     * @return this form
      */
-    public void setFieldStyle(String value) {
+    public Form setFieldStyle(String value) {
         this.fieldStyle = value;
+        return this;
     }
 
     /**
@@ -1735,9 +1773,11 @@ public class Form extends AbstractContainer implements Stateful {
      * Set the JavaScript client side form validation flag.
      *
      * @param validate the JavaScript client side validation flag
+     * @return this form
      */
-    public void setJavaScriptValidation(boolean validate) {
+    public Form setJavaScriptValidation(boolean validate) {
         javaScriptValidation = validate;
+        return this;
     }
 
     /**
@@ -1756,9 +1796,11 @@ public class Form extends AbstractContainer implements Stateful {
      * Note the given align is not validated.
      *
      * @param align the field label HTML horizontal alignment
+     * @return this form
      */
-    public void setLabelAlign(String align) {
+    public Form setLabelAlign(String align) {
         labelAlign = align;
+        return this;
     }
 
     /**
@@ -1774,13 +1816,15 @@ public class Form extends AbstractContainer implements Stateful {
      * Set the form labels position <tt>["left", "top"]</tt>.
      *
      * @param position the form labels position
+     * @return this form
      */
-    public void setLabelsPosition(String position) {
+    public Form setLabelsPosition(String position) {
         if (POSITION_LEFT.equals(position) || POSITION_TOP.equals(position)) {
             labelsPosition = position;
         } else {
             throw new IllegalArgumentException("Invalid position: " + position);
         }
+        return this;
     }
 
     /**
@@ -1799,9 +1843,11 @@ public class Form extends AbstractContainer implements Stateful {
      * {@link Field#setParentStyleHint(java.lang.String)} property.
      *
      * @param value the label &lt;td&gt; "style" attribute value
+     * @return this form
      */
-    public void setLabelStyle(String value) {
+    public Form setLabelStyle(String value) {
         this.labelStyle = value;
+        return this;
     }
 
     /**
@@ -1812,11 +1858,13 @@ public class Form extends AbstractContainer implements Stateful {
      * @see org.apache.click.Control#setListener(Object, String)
      *
      * @param listener the listener object with the named method to invoke
+     * @return this form
      * @param method the name of the method to invoke
      */
     @Override
-    public void setListener(Object listener, String method) {
+    public Form setListener(Object listener, String method) {
         super.setListener(listener, method);
+        return this;
     }
 
     // Public Methods ---------------------------------------------------------
@@ -3231,13 +3279,15 @@ public class Form extends AbstractContainer implements Stateful {
          * This method is overridden to not change the field name once it is set.
          *
          * @param name the name of the field
+         * @return this field
          */
         @Override
-        public void setName(String name) {
+        public Field setName(String name) {
             if (this.name != null) {
-                return;
+                return this;
             }
             super.setName(name);
+            return this;
         }
 
         /**

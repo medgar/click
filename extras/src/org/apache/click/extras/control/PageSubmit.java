@@ -174,12 +174,14 @@ public class PageSubmit extends Submit {
      * Set the target page class to redirect to.
      *
      * @param pageClass the target page class to redirect to
+     * @return this submit
      */
-    public void setPageClass(Class<? extends Page> pageClass) {
+    public PageSubmit setPageClass(Class<? extends Page> pageClass) {
         if (pageClass == null) {
             throw new IllegalArgumentException("null pageClass parameter");
         }
         this.pageClass = pageClass;
+        return this;
     }
 
     // --------------------------------------------------------- Public Methods

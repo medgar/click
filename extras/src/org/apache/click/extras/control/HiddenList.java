@@ -97,15 +97,17 @@ public class HiddenList extends Field {
      * Set the list of hidden values.
      *
      * @param valueObject a list of Strings
+     * @return this field
      */
     @SuppressWarnings("unchecked")
     @Override
-    public void setValueObject(Object valueObject) {
+    public HiddenList setValueObject(Object valueObject) {
         if (!(valueObject instanceof List<?>)) {
             throw new IllegalArgumentException("the valueObject must be a"
                 + " List.");
         }
         this.valueObject = (List<String>) valueObject;
+        return this;
     }
 
     /**

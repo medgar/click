@@ -236,9 +236,11 @@ public class TextArea extends Field {
      * Set the number of text area columns. The default number of columns is 20.
      *
      * @param cols set the number of text area columns.
+     * @return this text area
      */
-    public void setCols(int cols) {
+    public TextArea setCols(int cols) {
         this.cols = cols;
+        return this;
     }
 
     /**
@@ -258,9 +260,11 @@ public class TextArea extends Field {
      * this constraint when processed.
      *
      * @param maxLength the maximum field length validation constraint
+     * @return this text area
      */
-    public void setMaxLength(int maxLength) {
+    public TextArea setMaxLength(int maxLength) {
         this.maxLength = maxLength;
+        return this;
     }
 
     /**
@@ -280,9 +284,11 @@ public class TextArea extends Field {
      * will be validated against this constraint when processed.
      *
      * @param minLength the minimum field length validation constraint
+     * @return this text area
      */
-    public void setMinLength(int minLength) {
+    public TextArea setMinLength(int minLength) {
         this.minLength = minLength;
+        return this;
     }
 
     /**
@@ -310,9 +316,11 @@ public class TextArea extends Field {
      * Set the textarea field HTML5 placeholder attribute.
      *
      * @param value the textarea field HTML5 placeholder attribute.
+     * @return this text area
      */
-    public void setPlaceholder(String value) {
+    public TextArea setPlaceholder(String value) {
         this.placeholder = value;
+        return this;
     }
 
     /**
@@ -328,9 +336,11 @@ public class TextArea extends Field {
      * Set the number of text area rows. The default number of rows is 3.
      *
      * @param rows set the number of text area rows
+     * @return this text area
      */
-    public void setRows(int rows) {
+    public TextArea setRows(int rows) {
         this.rows = rows;
+        return this;
     }
 
     // --------------------------------------------------------- Public Methods

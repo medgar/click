@@ -203,12 +203,14 @@ public class LongField extends NumberField {
      * @see org.apache.click.control.Field#setValueObject(Object)
      *
      * @param object the object value to set
+     * @return this field
      */
     @Override
-    public void setValueObject(Object object) {
+    public LongField setValueObject(Object object) {
         if (object != null) {
             value = object.toString();
         }
+        return this;
     }
 
     // --------------------------------------------------------- Public Methods

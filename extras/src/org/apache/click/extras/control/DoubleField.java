@@ -168,9 +168,11 @@ public class DoubleField extends NumberField {
      * Set the Double value of the field.
      *
      * @param doubleValue the double value to set
+     * @return this field
      */
-    public void setDouble(Double doubleValue) {
+    public DoubleField setDouble(Double doubleValue) {
         setValueObject(doubleValue);
+        return this;
     }
 
     /**

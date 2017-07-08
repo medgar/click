@@ -261,15 +261,17 @@ public abstract class AbstractContainerField extends Field implements Container 
      * @see org.apache.click.Control#setParent(Object)
      *
      * @param parent the parent of the Control
+     * @return this field
      * @throws IllegalArgumentException if the given parent instance is
      * referencing <tt>this</tt> object: <tt>if (parent == this)</tt>
      */
     @Override
-    public void setParent(Object parent) {
+    public AbstractContainerField setParent(Object parent) {
         if (parent == this) {
             throw new IllegalArgumentException("Cannot set parent to itself");
         }
         this.parent = parent;
+        return this;
     }
 
     /**

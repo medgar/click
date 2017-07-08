@@ -274,10 +274,11 @@ public class Tree extends AbstractControl {
      * @see Control#setName(String)
      *
      * @param name of the control
+     * @return this tree
      * @throws IllegalArgumentException if the name is null
      */
     @Override
-    public void setName(String name) {
+    public Tree setName(String name) {
         super.setName(name);
         getExpandLink().setName(name + "-expandLink");
         getExpandLink().setLabel("");
@@ -286,6 +287,7 @@ public class Tree extends AbstractControl {
         getSelectLink().setName(name + "-selectLink");
         getSelectLink().setLabel("");
         getSelectLink().setParent(this);
+        return this;
     }
 
     /**
@@ -330,21 +332,25 @@ public class Tree extends AbstractControl {
      *
      * @param rootNodeDisplayed true if the root node should be displayed,
      * false otherwise
+     * @return this tree
      */
-    public void setRootNodeDisplayed(boolean rootNodeDisplayed) {
+    public Tree setRootNodeDisplayed(boolean rootNodeDisplayed) {
         this.rootNodeDisplayed = rootNodeDisplayed;
+        return this;
     }
 
     /**
      * Set the tree's root TreeNode.
      *
      * @param rootNode node will be set as the root
+     * @return this tree
      */
-    public void setRootNode(TreeNode rootNode) {
+    public Tree setRootNode(TreeNode rootNode) {
         if (rootNode == null) {
-            return;
+            return this;
         }
         this.rootNode = rootNode;
+        return this;
     }
 
     /**
@@ -361,9 +367,11 @@ public class Tree extends AbstractControl {
      * the tree nodes.
      *
      * @param decorator the tree's decorator
+     * @return this tree
      */
-    public void setDecorator(Decorator decorator) {
+    public Tree setDecorator(Decorator decorator) {
         this.decorator = decorator;
+        return this;
     }
 
     /**
@@ -406,13 +414,15 @@ public class Tree extends AbstractControl {
      *
      * @param newValue the value to set the javascriptEnabled property to
      * @throws IllegalArgumentException if the context is null
+     * @return this tree
      */
-    public void setJavascriptEnabled(boolean newValue) {
+    public Tree setJavascriptEnabled(boolean newValue) {
         if (getContext().getRequest().isRequestedSessionIdFromCookie()) {
             setJavascriptEnabled(newValue, JAVASCRIPT_COOKIE_POLICY);
         } else {
             setJavascriptEnabled(newValue, JAVASCRIPT_SESSION_POLICY);
         }
+        return this;
     }
 
     /**
@@ -423,9 +433,10 @@ public class Tree extends AbstractControl {
      *
      * @param newValue the value to set the javascriptEnabled property to
      * @param javascriptPolicy the current javascript policy
+     * @return this tree
      * @throws IllegalArgumentException if the context is null
      */
-    public void setJavascriptEnabled(boolean newValue, int javascriptPolicy) {
+    public Tree setJavascriptEnabled(boolean newValue, int javascriptPolicy) {
 
         this.javascriptEnabled = newValue;
         if (javascriptEnabled) {
@@ -437,6 +448,7 @@ public class Tree extends AbstractControl {
             removeListener(javascriptHandler);
             this.javascriptPolicy = 0;
         }
+        return this;
     }
 
     /**
@@ -458,9 +470,11 @@ public class Tree extends AbstractControl {
      * tree.setWidth("200px"); </pre>
      *
      * @param value the CSS "width" style attribute
+     * @return this tree
      */
-    public void setWidth(String value) {
+    public Tree setWidth(String value) {
         setStyle("width", value);
+        return this;
     }
 
     /**
@@ -481,9 +495,11 @@ public class Tree extends AbstractControl {
      * tree.setHeight("200px"); </pre>
      *
      * @param value the CSS "height" style attribute
+     * @return this tree
      */
-    public void setHeight(String value) {
+    public Tree setHeight(String value) {
         setStyle("height", value);
+        return this;
     }
 
     /**
@@ -591,9 +607,11 @@ public class Tree extends AbstractControl {
      *
      * @param notifyListeners true if the tree will notify its listeners ,
      * false otherwise
+     * @return this tree
      */
-    public void setNotifyListeners(boolean notifyListeners) {
+    public Tree setNotifyListeners(boolean notifyListeners) {
         this.notifyListeners = notifyListeners;
+        return this;
     }
 
     /**
@@ -926,10 +944,12 @@ public class Tree extends AbstractControl {
      *
      * @param listener the listener object with the named method to invoke
      * @param method the name of the method to invoke
+     * @return this tree
      */
     @Override
-    public void setListener(Object listener, String method) {
+    public Tree setListener(Object listener, String method) {
         super.setListener(listener, method);
+        return this;
     }
 
     /**
@@ -939,10 +959,12 @@ public class Tree extends AbstractControl {
      * use {@link #addListener(TreeListener)}.
      *
      * @param listener the control's action listener
+     * @return this tree
      */
     @Override
-    public void setActionListener(ActionListener listener) {
+    public Tree setActionListener(ActionListener listener) {
         super.setActionListener(listener);
+        return this;
     }
 
     /**

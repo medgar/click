@@ -191,10 +191,12 @@ public class HiddenField extends Field {
      * @see Field#setValue(String)
      *
      * @param value the Field value
+     * @return this field
      */
     @Override
-    public void setValue(String value) {
+    public HiddenField setValue(String value) {
         setValueObject(value);
+        return this;
     }
 
     /**
@@ -210,9 +212,11 @@ public class HiddenField extends Field {
      * Set the registered Class for the Hidden Field value Object.
      *
      * @param valueClass the registered Class for the Hidden Field value Object
+     * @return this field
      */
-    public void setValueClass(Class<?> valueClass) {
+    public HiddenField setValueClass(Class<?> valueClass) {
         this.valueClass = valueClass;
+        return this;
     }
 
     /**
@@ -231,9 +235,10 @@ public class HiddenField extends Field {
      * @see Field#setValueObject(Object)
      *
      * @param value the object value to set
+     * @return this field
      */
     @Override
-    public void setValueObject(Object value) {
+    public HiddenField setValueObject(Object value) {
         if ((value != null) && (value.getClass() != valueClass)) {
             String msg =
                 "The value.getClass(): '" + value.getClass().getName()
@@ -244,6 +249,7 @@ public class HiddenField extends Field {
         }
 
         this.valueObject = value;
+        return this;
     }
 
     /**

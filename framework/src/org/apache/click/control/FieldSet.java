@@ -594,10 +594,12 @@ public class FieldSet extends Field implements Container {
      * limitation and is not due to Click.
      *
      * @param disabled the Field disabled flag
+     * @return this field
      */
     @Override
-    public void setDisabled(boolean disabled) {
+    public FieldSet setDisabled(boolean disabled) {
         super.setDisabled(disabled);
+        return this;
     }
 
     /**
@@ -621,10 +623,12 @@ public class FieldSet extends Field implements Container {
      * to readonly.
      *
      * @param readonly the FieldSet readonly flag
+     * @return this field
      */
     @Override
-    public void setReadonly(boolean readonly) {
+    public FieldSet setReadonly(boolean readonly) {
         super.setReadonly(readonly);
+        return this;
     }
 
     /**
@@ -653,9 +657,11 @@ public class FieldSet extends Field implements Container {
      * <b>Note</b> currently only {@link Form} acts upon the column value.
      *
      * @param columns the number of fieldset layout table columns
+     * @return this fieldset
      */
-    public void setColumns(int columns) {
+    public FieldSet setColumns(int columns) {
         this.columns = columns;
+        return this;
     }
 
     /**
@@ -673,9 +679,11 @@ public class FieldSet extends Field implements Container {
      * &lt;fieldset&gt; element.
      *
      * @param value the render the fieldset border flag
+     * @return this fieldset
      */
-    public void setShowBorder(boolean value) {
+    public FieldSet setShowBorder(boolean value) {
         this.showBorder = value;
+        return this;
     }
 
     /**
@@ -728,9 +736,10 @@ public class FieldSet extends Field implements Container {
      * Set the FieldSet's the parent <tt>Form</tt>.
      *
      * @param form FieldSet's parent <tt>Form</tt>
+     * @return this field
      */
     @Override
-    public void setForm(Form form) {
+    public FieldSet setForm(Form form) {
         this.form = form;
 
         // Set the specified form on the fieldsSets children. This call is not
@@ -740,6 +749,7 @@ public class FieldSet extends Field implements Container {
                 ((Field) control).setForm(form);
             }
         }
+        return this;
     }
 
     /**
@@ -778,9 +788,11 @@ public class FieldSet extends Field implements Container {
      * border but don't want a legend caption.
      *
      * @param legend the fieldset Legend element value
+     * @return this fieldset
      */
-    public void setLegend(String legend) {
+    public FieldSet setLegend(String legend) {
         this.legend = legend;
+        return this;
     }
 
     /**
@@ -803,9 +815,10 @@ public class FieldSet extends Field implements Container {
      *
      * @param name the name of the form HTML attribute
      * @param value the value of the form HTML attribute
+     * @return this fieldset
      * @throws IllegalArgumentException if name parameter is null
      */
-    public void setLegendAttribute(String name, String value) {
+    public FieldSet setLegendAttribute(String name, String value) {
         if (name == null) {
             throw new IllegalArgumentException("Null name parameter");
         }
@@ -819,6 +832,7 @@ public class FieldSet extends Field implements Container {
         } else {
             legendAttributes.remove(name);
         }
+        return this;
     }
 
     /**

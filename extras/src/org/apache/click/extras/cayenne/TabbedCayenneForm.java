@@ -157,9 +157,11 @@ public class TabbedCayenneForm extends CayenneForm {
      * Set the form HTML background color.
      *
      * @param value the form HTML background color
+     * @return this form
      */
-    public void setBackgroundColor(String value) {
+    public TabbedCayenneForm setBackgroundColor(String value) {
         this.backgroundColor = value;
+        return this;
     }
 
     /**
@@ -204,9 +206,11 @@ public class TabbedCayenneForm extends CayenneForm {
      * Set the number of the tab sheet to display (indexed from 1).
      *
      * @param value the number of the tab sheet to display
+     * @return this form
      */
-    public void setDisplayTab(int value) {
+    public TabbedCayenneForm setDisplayTab(int value) {
         this.displayTab = value;
+        return this;
     }
 
     /**
@@ -222,9 +226,11 @@ public class TabbedCayenneForm extends CayenneForm {
      * Set the tab sheet height HTML attribute value.
      *
      * @param value the tab sheet height attribute value
+     * @return this form
      */
-    public void setTabHeight(String value) {
+    public TabbedCayenneForm setTabHeight(String value) {
         this.tabHeight = value;
+        return this;
     }
 
     /**
@@ -266,9 +272,11 @@ public class TabbedCayenneForm extends CayenneForm {
      * Set the tab sheet width HTML attribute value.
      *
      * @param value the tab sheet width attribute value
+     * @return this form
      */
-    public void setTabWidth(String value) {
+    public TabbedCayenneForm setTabWidth(String value) {
         this.tabWidth = value;
+        return this;
     }
 
     /**
@@ -284,9 +292,11 @@ public class TabbedCayenneForm extends CayenneForm {
      * Set the path of the Velocity template to render.
      *
      * @param template the path of the Velocity template to render
+     * @return this form
      */
-    public void setTemplate(String template) {
+    public TabbedCayenneForm setTemplate(String template) {
         this.template = template;
+        return this;
     }
 
     // Public Methods ---------------------------------------------------------

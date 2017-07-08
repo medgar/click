@@ -148,9 +148,11 @@ public class ImageSubmit extends Submit {
      * rendered by the control.
      *
      * @param src the image src path attribute
+     * @return this image submit
      */
-    public void setSrc(String src) {
+    public ImageSubmit setSrc(String src) {
         this.src = src;
+        return this;
     }
 
     /**

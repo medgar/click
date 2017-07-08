@@ -345,15 +345,17 @@ public class FormTable extends Table {
      * @see org.apache.click.Control#setName(String)
      *
      * @param name of the control
+     * @return this form table
      * @throws IllegalArgumentException if the name is null
      */
     @Override
-    public void setName(String name) {
+    public FormTable setName(String name) {
         super.setName(name);
 
         if (useInternalForm) {
             getForm().setName(getName() + "_form");
         }
+        return this;
     }
 
     /**
@@ -363,12 +365,13 @@ public class FormTable extends Table {
      * @see org.apache.click.Control#setParent(Object)
      *
      * @param parent the parent of the FormTable
+     * @return this form table
      * @throws IllegalStateException if {@link #name} is not defined
      * @throws IllegalArgumentException if the given parent instance is
      * referencing <tt>this</tt> object: <tt>if (parent == this)</tt>
      */
     @Override
-    public void setParent(Object parent) {
+    public FormTable setParent(Object parent) {
         super.setParent(parent);
 
         if (!useInternalForm) {
@@ -376,6 +379,7 @@ public class FormTable extends Table {
             // parent to the external Form
             getControlLink().setParent(getForm());
         }
+        return this;
     }
 
     /**
@@ -392,9 +396,11 @@ public class FormTable extends Table {
      * Set whether the table should render the submitted form values.
      *
      * @param render set whether the table should render the submitted form values
+     * @return this form table
      */
-    public void setRenderSubmittedValues(boolean render) {
+    public FormTable setRenderSubmittedValues(boolean render) {
         renderSubmittedValues = render;
+        return this;
     }
 
     /**
@@ -409,54 +415,62 @@ public class FormTable extends Table {
      * at the end of each request.
      *
      * @param rowList the list of table rows to set
+     * @return this form table
      */
     @Override
-    public void setRowList(List rowList) {
+    public FormTable setRowList(List rowList) {
         super.setRowList(rowList);
+        return this;
     }
 
     /**
      * @see org.apache.click.control.Table#setSortedColumn(java.lang.String)
      *
      * @param columnName the name of the sorted column
+     * @return this form table
      */
     @Override
-    public void setSortedColumn(String columnName) {
+    public FormTable setSortedColumn(String columnName) {
         Field field = (Field) getForm().getFields().get(COLUMN);
         if (field != null) {
             field.setValue(columnName);
         }
         setSorted(false);
         super.setSortedColumn(columnName);
+        return this;
     }
 
     /**
      * @see org.apache.click.control.Table#setSortedAscending(boolean)
      *
      * @param ascending the ascending sort order status
+     * @return this form table
      */
     @Override
-    public void setSortedAscending(boolean ascending) {
+    public FormTable setSortedAscending(boolean ascending) {
         Field field = (Field) getForm().getFields().get(ASCENDING);
         if (field != null) {
             field.setValue(Boolean.toString(ascending));
         }
         setSorted(false);
         super.setSortedAscending(ascending);
+        return this;
     }
 
     /**
      * @see org.apache.click.control.Table#setPageNumber(int)
      *
      * @param pageNumber set the currently displayed page number
+     * @return this form table
      */
     @Override
-    public void setPageNumber(int pageNumber) {
+    public FormTable setPageNumber(int pageNumber) {
         Field field = (Field) getForm().getFields().get(PAGE);
         if (field != null) {
             field.setValue(Integer.toString(pageNumber));
         }
         super.setPageNumber(pageNumber);
+        return this;
     }
 
     // Public Methods ---------------------------------------------------------
