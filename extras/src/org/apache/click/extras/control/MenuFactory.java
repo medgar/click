@@ -169,6 +169,7 @@ public class MenuFactory implements Serializable {
     protected static final Map<String, Menu> MENU_CACHE = new ConcurrentHashMap<String, Menu>();
 
     static {
+        DEFAULT_ATTRIBUTES.add("id");
         DEFAULT_ATTRIBUTES.add("name");
         DEFAULT_ATTRIBUTES.add("label");
         DEFAULT_ATTRIBUTES.add("path");
@@ -207,8 +208,11 @@ public class MenuFactory implements Serializable {
      * or menu.xml in the root classpath
      */
     public Menu getRootMenu(Class<? extends Menu> menuClass) {
-        return getRootMenu(DEFAULT_ROOT_MENU_NAME, DEFAULT_CONFIG_FILE,
-            new RoleAccessController(), true, menuClass);
+        return getRootMenu(DEFAULT_ROOT_MENU_NAME,
+                           DEFAULT_CONFIG_FILE,
+                           new RoleAccessController(),
+                           true,
+                           menuClass);
     }
 
     /**
@@ -221,8 +225,31 @@ public class MenuFactory implements Serializable {
      * in the root classpath
      */
     public Menu getRootMenu(AccessController accessController) {
-        return getRootMenu(DEFAULT_ROOT_MENU_NAME, DEFAULT_CONFIG_FILE,
-            accessController, true, null);
+        return getRootMenu(DEFAULT_ROOT_MENU_NAME,
+                           DEFAULT_CONFIG_FILE,
+                           accessController,
+                           true,
+                           null);
+    }
+
+    /**
+     * Return root menu item defined in the WEB-INF/menu.xml or classpath
+     * menu.xml, creating menu items using the provided Menu class and
+     * AccessController.
+     *
+     * @param menuClass the menu class to create new Menu instances from
+     * @param accessController the menu access controller
+     * @return the root menu item defined in the WEB-INF/menu.xml file or menu.xml
+     * in the root classpath
+     */
+    public Menu getRootMenu(Class<? extends Menu> menuClass,
+                            AccessController accessController) {
+
+        return getRootMenu(DEFAULT_ROOT_MENU_NAME,
+                           DEFAULT_CONFIG_FILE,
+                           accessController,
+                           true,
+                           menuClass);
     }
 
     /**
@@ -237,8 +264,11 @@ public class MenuFactory implements Serializable {
      * in the root classpath
      */
     public Menu getRootMenu(boolean cached) {
-        return getRootMenu(DEFAULT_ROOT_MENU_NAME, DEFAULT_CONFIG_FILE,
-            new RoleAccessController(), cached, null);
+        return getRootMenu(DEFAULT_ROOT_MENU_NAME,
+                           DEFAULT_CONFIG_FILE,
+                           new RoleAccessController(),
+                           cached,
+                           null);
     }
 
     /**
@@ -252,8 +282,11 @@ public class MenuFactory implements Serializable {
      * classpath
      */
     public Menu getRootMenu(String name, String fileName) {
-        return getRootMenu(name, fileName, new RoleAccessController(),
-            true, null);
+        return getRootMenu(name,
+                           fileName,
+                           new RoleAccessController(),
+                           true,
+                           null);
     }
 
     /**
@@ -283,9 +316,11 @@ public class MenuFactory implements Serializable {
      * @return the root menu item defined by the fileName under WEB-INF or the
      * classpath
      */
-    public Menu getRootMenu(String name, String fileName,
-        AccessController accessController, boolean cached,
-        Class<? extends Menu> menuClass) {
+    public Menu getRootMenu(String name,
+                            String fileName,
+                            AccessController accessController,
+                            boolean cached,
+                            Class<? extends Menu> menuClass) {
 
         Validate.notNull(name, "Null name parameter");
         Validate.notNull(fileName, "Null fileName parameter");
@@ -346,6 +381,11 @@ public class MenuFactory implements Serializable {
         }
 
         menu.setAccessController(accessController);
+
+        String id = menuElement.getAttribute("id");
+        if (StringUtils.isNotBlank(id)) {
+            menu.setId(id);
+        }
 
         String nameAtr = menuElement.getAttribute("name");
         if (StringUtils.isNotBlank(nameAtr)) {

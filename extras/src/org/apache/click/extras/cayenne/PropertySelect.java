@@ -29,6 +29,7 @@ import org.apache.cayenne.access.DataContext;
 import org.apache.cayenne.query.NamedQuery;
 import org.apache.cayenne.query.Ordering;
 import org.apache.cayenne.query.SelectQuery;
+import org.apache.cayenne.query.SortOrder;
 import org.apache.click.Context;
 import org.apache.click.control.Decorator;
 import org.apache.click.control.Option;
@@ -597,7 +598,7 @@ public class PropertySelect extends Select {
                     orderingApplied = true;
 
                 } else if (getOptionLabel() != null && !orderingApplied) {
-                    query.addOrdering(getOptionLabel(), true);
+                    query.addOrdering(getOptionLabel(), SortOrder.ASCENDING);
                     orderingApplied = true;
                 }
 
@@ -622,7 +623,7 @@ public class PropertySelect extends Select {
                     orderingApplied = true;
 
                 } else if (getOptionLabel() != null && !orderingApplied) {
-                    query.addOrdering(getOptionLabel(), true);
+                    query.addOrdering(getOptionLabel(), SortOrder.ASCENDING);
                     orderingApplied = true;
                 }
 

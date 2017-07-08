@@ -345,8 +345,8 @@ public class PickList extends Field {
             throw new IllegalArgumentException(msg);
         }
         for (Map.Entry<?, ?> entry : options.entrySet()) {
-            Option option = new Option(entry.getKey().toString(), entry
-                    .getValue().toString());
+            Option option = new Option(entry.getKey().toString(),
+                                       entry.getValue().toString());
             getOptionList().add(option);
         }
     }
@@ -756,6 +756,18 @@ public class PickList extends Field {
     }
 
     /**
+     * Return the control tag.
+     *
+     * @see org.apache.click.control.AbstractControl#getTag()
+     *
+     * @return null
+     */
+    @Override
+    public String getTag() {
+        return null;
+    }
+
+    /**
      * Return the field JavaScript client side validation function.
      * <p/>
      * The function name must follow the format <tt>validate_[id]</tt>, where
@@ -807,7 +819,7 @@ public class PickList extends Field {
      */
     @Override
     public Object getState() {
-            List selectedState = getSelectedValues();
+        List selectedState = getSelectedValues();
         if (selectedState.isEmpty()) {
             return null;
         } else {

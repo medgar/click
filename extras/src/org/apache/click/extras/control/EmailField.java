@@ -20,12 +20,13 @@ package org.apache.click.extras.control;
 
 import java.text.MessageFormat;
 import java.util.List;
-import org.apache.click.Context;
 
+import org.apache.click.Context;
 import org.apache.click.control.TextField;
 import org.apache.click.element.Element;
 import org.apache.click.element.JsImport;
 import org.apache.click.util.ClickUtils;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Provides a Email Field control: &nbsp; &lt;input type='text'&gt;.
@@ -55,9 +56,6 @@ import org.apache.click.util.ClickUtils;
  * <span class="blue">$jsElements</span> in the page template.
  * <p/>
  *
- * See also W3C HTML reference
- * <a class="external" target="_blank" title="W3C HTML 4.01 Specification"
- *    href="http://www.w3.org/TR/html401/interact/forms.html#h-17.4">INPUT</a>
  */
 public class EmailField extends TextField {
 
@@ -88,6 +86,13 @@ public class EmailField extends TextField {
         + "      return null;\n"
         + "   '}'\n"
         + "'}'\n";
+
+    // Instance Variables -----------------------------------------------------
+
+    /**
+     * Specify whether to remove whitespace characters from users entered value.
+     */
+    protected boolean removeWhitespace;
 
     // Constructors -----------------------------------------------------------
 
@@ -199,6 +204,24 @@ public class EmailField extends TextField {
     }
 
     /**
+     * Return true if the user entered whitespace characters will be removed.
+     *
+     * @return true if the user entered whitespace characters will be removed.
+     */
+    public boolean isRemoveWhitespace() {
+        return removeWhitespace;
+    }
+
+    /**
+     * Specify whether to remove whitespace characters from users entered value.
+     *
+     * @param removeWhitespace specify whether to remove email whitespace characters
+     */
+    public void setRemoveWhitespace(boolean removeWhitespace) {
+        this.removeWhitespace = removeWhitespace;
+    }
+
+    /**
      * Return the field JavaScript client side validation function.
      * <p/>
      * The function name must follow the format <tt>validate_[id]</tt>, where
@@ -216,15 +239,41 @@ public class EmailField extends TextField {
         args[3] = String.valueOf(getMaxLength());
         args[4] = getMessage("field-required-error", getErrorLabel());
         args[5] = getMessage("field-minlength-error",
-                getErrorLabel(), String.valueOf(getMinLength()));
+                             getErrorLabel(),
+                             String.valueOf(getMinLength()));
         args[6] = getMessage("field-maxlength-error",
-                getErrorLabel(), String.valueOf(getMaxLength()));
+                             getErrorLabel(),
+                             String.valueOf(getMaxLength()));
         args[7] = getMessage("email-format-error", getErrorLabel());
 
         return MessageFormat.format(VALIDATE_EMAILFIELD_FUNCTION, args);
     }
 
     // Public Methods ---------------------------------------------------------
+
+    /**
+     * This method binds the submitted request value to the Field's value. If
+     * removeWhitespace is true, then any whitespace characters will be
+     * removed from the user entered value.
+     * <p/>
+     * <b>Please note:</b> while it is possible to explicitly bind the field
+     * value by invoking this method directly, it is recommended to use the
+     * "<tt>bind</tt>" utility methods in {@link org.apache.click.util.ClickUtils}
+     * instead. See {@link org.apache.click.util.ClickUtils#bind(org.apache.click.control.Field)}
+     * for more details.
+     *
+     * @see org.apache.click.control.Field#bindRequestValue()
+     */
+    @Override
+    public void bindRequestValue() {
+        String value = getRequestValue();
+
+        if (isRemoveWhitespace()) {
+            value = StringUtils.deleteWhitespace(value);
+        }
+
+        setValue(value);
+    }
 
     /**
      * Process the EmailField request submission.

@@ -82,6 +82,18 @@ public class HiddenList extends Field {
     // Public Attributes ------------------------------------------------------
 
     /**
+     * Return the control input type.
+     *
+     * @see org.apache.click.control.AbstractControl#getTag()
+     *
+     * @return "input" tag
+     */
+    @Override
+    public String getTag() {
+        return "input";
+    }
+
+    /**
      * Set the list of hidden values.
      *
      * @param valueObject a list of Strings
