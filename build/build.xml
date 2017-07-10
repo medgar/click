@@ -39,13 +39,13 @@
    <property name="jar.log4j" value="log4j-${log4j.version}.jar"/>
    <property name="jar.mvel2" value="mvel2-${mvel2.version}.jar"/>
    <property name="jar.ognl" value="ognl-${ognl.version}.jar"/>
-   <property name="jar.servlet" value="servlet-api-${servlet-api.version}.jar"/>
+   <property name="jar.servlet" value="javax.servlet-api-${servlet-api.version}.jar"/>
    <property name="jar.slf4j" value="slf4j-api-${slf4j.version}.jar"/>
    <property name="jar.spring" value="spring-${spring.version}.jar"/>
    <property name="jar.upload" value="commons-fileupload-${commons-fileupload.version}.jar"/>
    <property name="jar.velocity" value="velocity-${velocity.version}.jar"/>
-   <property name="javac.source" value="1.5"/>
-   <property name="repository" value="http://repo1.maven.org"/>
+   <property name="javac.source" value="1.8"/>
+   <property name="repository" value="http://central.maven.org"/>
    <property name="maven-bundle" value="../maven-upload"/>
 
 
@@ -564,7 +564,7 @@
       <downloadMacro name="${jar.ognl}"        path="ognl/ognl/${ognl.version}"/>
       <downloadMacro name="${jar.upload}"      path="commons-fileupload/commons-fileupload/${commons-fileupload.version}"/>
       <downloadMacro name="${jar.junit}"       path="junit/junit/${junit.version}"/>
-      <downloadMacro name="${jar.servlet}"     path="javax/servlet/servlet-api/${servlet-api.version}"/>
+      <downloadMacro name="${jar.servlet}"     path="javax/servlet/javax.servlet-api/${servlet-api.version}"/>
       <downloadMacro name="${jar.slf4j}"       path="org/slf4j/slf4j-api/${slf4j.version}"/>
       <downloadMacro name="${jar.spring}"      path="org/springframework/spring/${spring.version}"/>
       <downloadMacro name="${jar.velocity}"    path="org/apache/velocity/velocity/${velocity.version}"/>
@@ -582,14 +582,17 @@
       </condition>
 
       <!-- Check if checkstyle download is enabled -->
+   	  <!--
       <condition property="checkstyle.true">
         <istrue value="${download.checkstyle}" />
       </condition>
+      -->
 
       <!-- Download optional dependencies -->
       <antcall target="download-hibernate"/>
+   	  <!--
       <antcall target="download-checkstyle"/>
-      
+      -->
    </target>
 
 

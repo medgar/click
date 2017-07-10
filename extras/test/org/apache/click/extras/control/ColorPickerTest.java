@@ -51,7 +51,7 @@ public class ColorPickerTest extends TestCase {
     public void testValidate() {
         MockContext mockContext = MockContext.initContext();
         MockRequest mr = mockContext.getMockRequest();
-        Map<String, Object> params = mr.getParameterMap();
+        Map<String, Object> params = mr.getParameterValuesMap();
         
         ColorPicker cp = new ColorPicker("color");
         

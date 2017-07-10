@@ -32,6 +32,7 @@ import java.security.Principal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -41,12 +42,23 @@ import java.util.Locale;
 import java.util.Map;
 
 import java.util.Random;
+
+import javax.servlet.AsyncContext;
+import javax.servlet.DispatcherType;
+import javax.servlet.ReadListener;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.ServletInputStream;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpUpgradeHandler;
+import javax.servlet.http.Part;
+
 import org.apache.click.util.ClickUtils;
 import org.apache.commons.fileupload.FileUploadBase;
 import org.apache.commons.io.IOUtils;
@@ -94,13 +106,13 @@ public class MockRequest implements HttpServletRequest {
     private final List<Cookie> cookies = new ArrayList<Cookie>();
 
     /** The request headers map. */
-    private final Map<String, List<String>> headers = new HashMap<String, List<String>>();
+    private final Map<String, List<String>> headers = new HashMap<>();
 
     /** The name of the HTTP method with which this request was made. */
     private String method = "POST";
 
     /** The request parameter map. */
-    private final Map<String, Object> parameters = new HashMap<String, Object>();
+    private final Map<String, String[]> parameters = new HashMap<>();
 
     /** The request HTTP session. */
     private HttpSession session;
@@ -499,6 +511,20 @@ public class MockRequest implements HttpServletRequest {
                 public int read() {
                     return bais.read();
                 }
+
+                @Override
+                public boolean isFinished() {
+                    return true;
+                }
+
+                @Override
+                public boolean isReady() {
+                    return false;
+                }
+
+                @Override
+                public void setReadListener(ReadListener readListener) {
+                }
             };
         } else {
             return new ServletInputStream() {
@@ -506,6 +532,20 @@ public class MockRequest implements HttpServletRequest {
                 @Override
                 public int read() {
                     return -1;
+                }
+
+                @Override
+                public boolean isFinished() {
+                    return true;
+                }
+
+                @Override
+                public boolean isReady() {
+                    return false;
+                }
+
+                @Override
+                public void setReadListener(ReadListener readListener) {
                 }
             };
         }
@@ -581,6 +621,28 @@ public class MockRequest implements HttpServletRequest {
     }
 
     /**
+     * Add the request parameter value to add.
+     *
+     * @param name the name of the request parameter (required)
+     * @param value the request parameter value
+     */
+    public void addParameterValue(String name, Object value) {
+        if (value != null) {
+            if (parameters.containsKey(name)) {
+                String[] values = parameters.get(name);
+                String[] newValues = new String[values.length + 1];
+                for (int i = 0; i < values.length; i++) {
+                    newValues[i] = values[i];
+                }
+                newValues[values.length + 1] = value.toString();
+
+            } else {
+                parameters.put(name, new String[] { value.toString() });
+            }
+        }
+    }
+
+    /**
      * Get the request parameter with the given name.
      *
      * @param name The parameter name
@@ -600,8 +662,31 @@ public class MockRequest implements HttpServletRequest {
      *
      * @return The parameters
      */
-    public Map<String, Object> getParameterMap() {
+    public Map<String, String[]> getParameterMap() {
         return parameters;
+    }
+
+    /**
+     * Get the map of all of the parameter values. Single string values will be
+     * returned as a string, while multiple parameter values for the same key
+     * name will be returned as an array of strings.
+     *
+     * @return The parameters
+     */
+    public Map<String, Object> getParameterValuesMap() {
+        Map<String, Object> valuesMap = new HashMap<>();
+
+        for (Map.Entry<String, String[]> entry : parameters.entrySet()) {
+            String key = entry.getKey();
+            String[] values = entry.getValue();
+            if (values.length == 1) {
+                valuesMap.put(key, values[0]);
+            } else {
+                valuesMap.put(key, entry.getValue());
+            }
+        }
+
+        return valuesMap;
     }
 
     /**
@@ -1161,6 +1246,82 @@ public class MockRequest implements HttpServletRequest {
         attributes.put(name, o);
     }
 
+    // ---------------------------------------------------- Servlet 3.1 API Methods
+
+    @Override
+    public long getContentLengthLong() {
+        return 0;
+    }
+
+    @Override
+    public ServletContext getServletContext() {
+        return null;
+    }
+
+    @Override
+    public AsyncContext startAsync() throws IllegalStateException {
+        return null;
+    }
+
+    @Override
+    public AsyncContext startAsync(ServletRequest servletRequest, ServletResponse servletResponse)
+            throws IllegalStateException {
+        return null;
+    }
+
+    @Override
+    public boolean isAsyncStarted() {
+        return false;
+    }
+
+    @Override
+    public boolean isAsyncSupported() {
+        return false;
+    }
+
+    @Override
+    public AsyncContext getAsyncContext() {
+        return null;
+    }
+
+    @Override
+    public DispatcherType getDispatcherType() {
+        return null;
+    }
+
+    @Override
+    public String changeSessionId() {
+        return null;
+    }
+
+    @Override
+    public boolean authenticate(HttpServletResponse response) throws IOException, ServletException {
+        return false;
+    }
+
+    @Override
+    public void login(String username, String password) throws ServletException {
+    }
+
+    @Override
+    public void logout() throws ServletException {
+    }
+
+    @Override
+    public Collection<Part> getParts() throws IOException, ServletException {
+        return null;
+    }
+
+    @Override
+    public Part getPart(String name) throws IOException, ServletException {
+        return null;
+    }
+
+    @Override
+    public <T extends HttpUpgradeHandler> T upgrade(Class<T> handlerClass) throws IOException, ServletException {
+        return null;
+    }
+
     /**
      * Set the auth type.
      *
@@ -1209,7 +1370,12 @@ public class MockRequest implements HttpServletRequest {
      * @param value The value
      */
     public void setParameter(final String name, final String value) {
-        parameters.put(name, value);
+        if (value != null) {
+            parameters.put(name, new String[]{ value });
+
+        } else {
+            parameters.remove(name);
+        }
     }
 
     /**
@@ -1236,7 +1402,7 @@ public class MockRequest implements HttpServletRequest {
      *
      * @param parameters the parameters to set
      */
-    public void setParameters(final Map<String, Object> parameters) {
+    public void setParameters(final Map<String, String[]> parameters) {
         this.parameters.putAll(parameters);
     }
 
@@ -1349,6 +1515,7 @@ public class MockRequest implements HttpServletRequest {
                 out.write("\"".getBytes());
                 out.write(CRLF.getBytes());
                 out.write(CRLF.getBytes());
+// TODO: fix
                 out.write(parameters.get(name).toString().getBytes());
                 out.write(CRLF.getBytes());
             }

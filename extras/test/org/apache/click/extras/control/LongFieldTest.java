@@ -18,9 +18,10 @@
  */
 package org.apache.click.extras.control;
 
-import junit.framework.TestCase;
 import org.apache.click.MockContext;
 import org.apache.click.servlet.MockRequest;
+
+import junit.framework.TestCase;
 
 public class LongFieldTest extends TestCase {
     
@@ -31,14 +32,14 @@ public class LongFieldTest extends TestCase {
         LongField longField = new LongField("id");
         assertEquals("id", longField.getName());
 
-        request.getParameterMap().put("id", "1234");
+        request.addParameterValue("id", "1234");
         
         assertTrue(longField.onProcess());
         assertTrue(longField.isValid());
         assertEquals("1234", longField.getValue());
         assertEquals(new Long(1234), longField.getValueObject());
         
-        request.getParameterMap().put("id", "123.4");
+        request.addParameterValue("id", "123.4");
         
         assertTrue(longField.onProcess());
         assertFalse(longField.isValid());
@@ -46,7 +47,7 @@ public class LongFieldTest extends TestCase {
         assertNull(longField.getValueObject());
 
         // Test not required + blank value
-        request.getParameterMap().put("id", "");
+        request.addParameterValue("id", "");
         
         assertTrue(longField.onProcess());
         assertTrue(longField.isValid());
@@ -59,7 +60,7 @@ public class LongFieldTest extends TestCase {
         assertEquals("", longField.getValue());
         assertNull(longField.getValueObject());
         
-        request.getParameterMap().put("id", "10");
+        request.addParameterValue("id", "10");
         
         longField.setMinValue(10);     
         assertTrue(longField.onProcess());
@@ -73,7 +74,7 @@ public class LongFieldTest extends TestCase {
         assertEquals("10", longField.getValue());
         assertEquals(new Long(10), longField.getValueObject());
         
-        request.getParameterMap().put("id", "20");
+        request.addParameterValue("id", "20");
         
         longField.setMaxValue(20);
         assertTrue(longField.onProcess());
@@ -96,7 +97,7 @@ public class LongFieldTest extends TestCase {
         assertEquals(new Long(20), longField.getLong());
         assertEquals(new Integer(20), longField.getInteger());
         
-        request.getParameterMap().put("id", "-20");
+        request.addParameterValue("id", "-20");
         
         longField.setMinValue(-21);
         assertTrue(longField.onProcess());

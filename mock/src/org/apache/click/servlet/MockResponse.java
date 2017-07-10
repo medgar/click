@@ -36,6 +36,7 @@ import java.util.Set;
 import java.util.TimeZone;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.WriteListener;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
@@ -409,6 +410,15 @@ public class MockResponse implements HttpServletResponse {
             public void write(int b) {
                 byteStream.write(b);
             }
+
+            @Override
+            public boolean isReady() {
+                return false;
+            }
+
+            @Override
+            public void setWriteListener(WriteListener writeListener) {
+            }
         };
         stringWriter = new StringWriter();
         printWriter = new PrintWriter(stringWriter) {
@@ -693,5 +703,21 @@ public class MockResponse implements HttpServletResponse {
      */
     public void setStatus(final int status, final String msg) {
         setStatus(status);
+    }
+
+    /**
+     * Set the content length long
+     */
+    @Override
+    public void setContentLengthLong(long len) {
+
+    }
+
+    /**
+     * Return the request headers.
+     */
+    @Override
+    public Collection<String> getHeaders(String name) {
+        return null;
     }
 }

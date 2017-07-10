@@ -19,8 +19,9 @@
 package org.apache.click.extras.control;
 
 import org.apache.click.MockContext;
-import junit.framework.TestCase;
 import org.apache.click.servlet.MockRequest;
+
+import junit.framework.TestCase;
 
 public class TelephoneFieldTest extends TestCase {
     
@@ -31,26 +32,26 @@ public class TelephoneFieldTest extends TestCase {
         TelephoneField telephoneField = new TelephoneField("telephone");
         assertEquals("telephone", telephoneField.getName());
         
-        request.getParameterMap().put("telephone", "02 8734 7653");
+        request.addParameterValue("telephone", "02 8734 7653");
         
         assertTrue(telephoneField.onProcess());
         assertTrue(telephoneField.isValid());
         assertEquals("02 8734 7653", telephoneField.getValue());
         assertEquals("02 8734 7653", telephoneField.getValueObject());
         
-        request.getParameterMap().put("telephone", "1800-DOCTOR");
+        request.addParameterValue("telephone", "1800-DOCTOR");
         
         assertTrue(telephoneField.onProcess());
         assertFalse(telephoneField.isValid());
         assertEquals("1800-DOCTOR", telephoneField.getValue());
   
-        request.getParameterMap().put("telephone", "01-923 02 2345 3654");
+        request.addParameterValue("telephone", "01-923 02 2345 3654");
 
         assertTrue(telephoneField.onProcess());
         assertTrue(telephoneField.isValid());
         assertEquals("01-923 02 2345 3654", telephoneField.getValue());
         
-        request.getParameterMap().put("telephone", "");
+        request.addParameterValue("telephone", "");
         
         assertTrue(telephoneField.onProcess());
         assertTrue(telephoneField.isValid());
@@ -64,7 +65,7 @@ public class TelephoneFieldTest extends TestCase {
         assertEquals("", telephoneField.getValue());
         assertEquals(null, telephoneField.getValueObject());
         
-        request.getParameterMap().put("telephone", "(01) 2345 3654");
+        request.addParameterValue("telephone", "(01) 2345 3654");
         
         telephoneField.setMinLength(10);
         assertTrue(telephoneField.onProcess());

@@ -23,6 +23,7 @@ import java.io.OutputStream;
 import java.util.zip.GZIPOutputStream;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.WriteListener;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -272,6 +273,24 @@ public class CompressionResponseStream extends ServletOutputStream {
         return (this.closed);
     }
 
+    /**
+     * @see ServletOutputStream#isReady()
+     * @return false
+     */
+    @Override
+    public boolean isReady() {
+        return false;
+    }
+
+    /**
+     * This method does nothing.
+     * @see ServletOutputStream#setWriteListener(WriteListener()
+     */
+    @Override
+    public void setWriteListener(WriteListener writeListener) {
+        // does nothing
+    }
+
     // ------------------------------------------------------ Protected Methods
 
     /**
@@ -325,4 +344,5 @@ public class CompressionResponseStream extends ServletOutputStream {
         response.addHeader("Vary", "Accept-Encoding");
         return response.containsHeader("Content-Encoding");
     }
+
 }

@@ -31,26 +31,26 @@ public class EmailFieldTest extends TestCase {
         EmailField emailField = new EmailField("email");
         assertEquals("email", emailField.getName());
         
-        request.getParameterMap().put("email", "username@server.com");
+        request.addParameterValue("email", "username@server.com");
         
         assertTrue(emailField.onProcess());
         assertTrue(emailField.isValid());
         assertEquals("username@server.com", emailField.getValue());
         assertEquals("username@server.com", emailField.getValueObject());
         
-        request.getParameterMap().put("email", "username@");
+        request.addParameterValue("email", "username@");
         
         assertTrue(emailField.onProcess());
         assertFalse(emailField.isValid());
         assertEquals("username@", emailField.getValue());
   
-        request.getParameterMap().put("email", "@servr");
+        request.addParameterValue("email", "@servr");
         
         assertTrue(emailField.onProcess());
         assertFalse(emailField.isValid());
         assertEquals("@servr", emailField.getValue());
         
-        request.getParameterMap().put("email", "");
+        request.addParameterValue("email", "");
         
         assertTrue(emailField.onProcess());
         assertTrue(emailField.isValid());
@@ -64,7 +64,7 @@ public class EmailFieldTest extends TestCase {
         assertEquals("", emailField.getValue());
         assertEquals(null, emailField.getValueObject());
         
-        request.getParameterMap().put("email", "username@server.com");
+        request.addParameterValue("email", "username@server.com");
         
         emailField.setMinLength(10);
         assertTrue(emailField.onProcess());

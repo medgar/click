@@ -111,7 +111,7 @@ public class NumberFieldTest extends TestCase{
     public void testOnProcess() {
         MockContext mockContext = MockContext.initContext(Locale.US);
         MockRequest req = mockContext.getMockRequest();
-        Map<String, Object> params = req.getParameterMap();
+        Map<String, Object> params = req.getParameterValuesMap();
         
         NumberField engF = new NumberField("en");
         engF.setPattern("#,##0.00");
@@ -154,7 +154,7 @@ public class NumberFieldTest extends TestCase{
     public void testValidate() {
         MockContext mockContext = MockContext.initContext(Locale.US);
         MockRequest req = mockContext.getMockRequest();
-        Map<String, Object> params = req.getParameterMap();
+        Map<String, Object> params = req.getParameterValuesMap();
         
         NumberField engF = new NumberField("en");
         engF.setPattern("0");
