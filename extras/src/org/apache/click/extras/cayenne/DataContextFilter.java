@@ -19,6 +19,7 @@
 package org.apache.click.extras.cayenne;
 
 import java.io.IOException;
+import java.util.Collection;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -28,15 +29,17 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.cayenne.BaseContext;
 import org.apache.cayenne.LifecycleListener;
 import org.apache.cayenne.access.DataContext;
 import org.apache.cayenne.access.DataDomain;
-import org.apache.cayenne.cache.OSQueryCacheFactory;
-import org.apache.cayenne.conf.Configuration;
-import org.apache.cayenne.conf.ServletUtil;
+import org.apache.cayenne.configuration.CayenneRuntime;
+import org.apache.cayenne.configuration.server.ServerRuntime;
+import org.apache.cayenne.configuration.web.WebConfiguration;
+import org.apache.cayenne.configuration.web.WebModule;
+import org.apache.cayenne.configuration.web.WebUtil;
+import org.apache.cayenne.di.Module;
 import org.apache.cayenne.map.LifecycleEvent;
 import org.apache.cayenne.reflect.LifecycleCallbackRegistry;
 import org.apache.click.service.ConfigService;
@@ -57,17 +60,6 @@ import org.apache.commons.lang.StringUtils;
  * it is recommended that you add a separate DataContext to the session
  * for the unit of work.
  *
- * <h3>Session vs Request Scope</h3>
- *
- * By default DataContext objects will be associated with the users HttpSession
- * allowing objects to be cached in the users DataContext. Alternatively the
- * filter can be configured to create a new DataContext object for each request.
- * <p/>
- * Using session scope DataObjects is a good option for web applications which
- * have exclusive access to the underlying database. However when web applications
- * share a database you should probably disable this option by setting the
- * <tt>session-scope</tt> init parameter to false.
- *
  * <h3>Shared Cache</h3>
  *
  * By default DataContext objects will be created which use the Cayenne shared
@@ -76,22 +68,6 @@ import org.apache.commons.lang.StringUtils;
  * <p/>
  * However when web applications which share a database you should probably
  * disable this option by setting the <tt>shared-cache</tt> init parameter to false.
- *
- *
- * <h3>OSCache Enabled</h3>
- *
- * This option enables you to specify whether
- * <a href="http://www.opensymphony.com/oscache/">OSCache</a> should be used
- * as the query cache for the DataDomain. By default OSCache is not enabled.
- * <p/>
- * OSCache enables you to significantly
- * increase the performance of your applications with in-memory query caching.
- * OSCache provides fine grain control over query caching, expiry and supports
- * clustered cache invalidation.
- * <p/>
- * See
- * Cayenne <a href="http://cayenne.apache.org/doc/query-result-caching.html">Query Result Caching</a>
- * for more details.
  *
  * <h3>Lifecycle Listener</h3>
  *
@@ -160,10 +136,6 @@ import org.apache.commons.lang.StringUtils;
  *     &lt;filter-name&gt;<span class="blue">DataContextFilter</span>&lt;/filter-name&gt;
  *     &lt;filter-class&gt;<span class="red">org.apache.click.extras.cayenne.DataContextFilter</span>&lt;/filter-class&gt;
  *     &lt;init-param&gt;
- *       &lt;param-name&gt;<font color="blue">session-scope</font>&lt;/param-name&gt;
- *       &lt;param-value&gt;<font color="red">false</font>&lt;/param-value&gt;
- *     &lt;/init-param&gt;
- *     &lt;init-param&gt;
  *       &lt;param-name&gt;<font color="blue">shared-cache</font>&lt;/param-name&gt;
  *       &lt;param-value&gt;<font color="red">false</font>&lt;/param-value&gt;
  *     &lt;/init-param&gt;
@@ -207,18 +179,13 @@ public class DataContextFilter implements Filter {
      */
     protected FilterConfig filterConfig;
 
-    /**
-     * Maintain user DataContext object in their HttpSession, the default value
-     * is false. If sessionScope is false then a new DataContext object will be
-     * created for each request.
-     */
-    protected boolean sessionScope = false;
-
     /** Create DataContext objects using the shared cache. */
     protected Boolean sharedCache;
 
     /** The Click log service. */
     protected LogService logger;
+    
+    protected CayenneRuntime runtime;
 
     // --------------------------------------------------------- Public Methods
 
@@ -238,9 +205,24 @@ public class DataContextFilter implements Filter {
 
         filterConfig = config;
 
-        ServletUtil.initializeSharedConfiguration(config.getServletContext());
+        runtime = WebUtil.getCayenneRuntime(config.getServletContext());
+        
+        if (runtime == null) {
+        	
+        	WebConfiguration configAdapter = new WebConfiguration(config);
 
-        dataDomain = Configuration.getSharedConfiguration().getDomain();
+            String configurationLocation = configAdapter.getConfigurationLocation();
+            Collection<Module> modules;
+			try {
+				modules = configAdapter.createModules(new WebModule());
+				runtime = new ServerRuntime(
+						configurationLocation,
+						modules.toArray(new Module[modules.size()]));
+			} catch (ServletException e) {
+			}
+
+            WebUtil.setCayenneRuntime(config.getServletContext(), runtime);
+        }
 
         String value = null;
 
@@ -250,13 +232,6 @@ public class DataContextFilter implements Filter {
         }
         buffer.append(" auto-rollback=" + autoRollback);
 
-
-        value = config.getInitParameter("session-scope");
-        if (StringUtils.isNotBlank(value)) {
-            sessionScope = "true".equalsIgnoreCase(value);
-        }
-        buffer.append(", session-scope=" + sessionScope);
-
         value = config.getInitParameter("shared-cache");
         if (StringUtils.isNotBlank(value)) {
             sharedCache = "true".equalsIgnoreCase(value);
@@ -264,18 +239,10 @@ public class DataContextFilter implements Filter {
         buffer.append(", shared-cache=");
         buffer.append((sharedCache != null) ? sharedCache : "default");
 
-        value = config.getInitParameter("oscache-enabled");
-        boolean oscacheEnabled = "true".equalsIgnoreCase(value);
-        if (oscacheEnabled) {
-            dataDomain.setQueryCacheFactory(new OSQueryCacheFactory());
-        }
-        buffer.append(", oscache-enabled=" + oscacheEnabled);
-
         String classname = config.getInitParameter("lifecycle-listener");
 
         if (StringUtils.isNotEmpty(classname)) {
             try {
-                @SuppressWarnings("unchecked")
                 Class listenerClass = ClickUtils.classForName(classname);
 
                 LifecycleCallbackRegistry registry =
@@ -310,7 +277,9 @@ public class DataContextFilter implements Filter {
      * Destroy the DataContextFilter.
      */
     public void destroy() {
-        Configuration.getSharedConfiguration().shutdown();
+    	if (runtime != null) {
+    		runtime.shutdown();
+    	}
         this.filterConfig = null;
     }
 
@@ -400,26 +369,7 @@ public class DataContextFilter implements Filter {
      * @return the DataContext object
      */
     protected DataContext getDataContext(HttpServletRequest request) {
-
-        if (sessionScope) {
-            HttpSession session = request.getSession(true);
-
-            DataContext dataContext = (DataContext)
-                session.getAttribute(ServletUtil.DATA_CONTEXT_KEY);
-
-            if (dataContext == null) {
-                synchronized (session) {
-                    dataContext = createDataContext();
-
-                    session.setAttribute(ServletUtil.DATA_CONTEXT_KEY, dataContext);
-                }
-            }
-
-            return dataContext;
-
-        } else {
-            return createDataContext();
-        }
+    	return createDataContext();
     }
 
     /**
@@ -442,11 +392,7 @@ public class DataContextFilter implements Filter {
         if (logger.isTraceEnabled()) {
             HtmlStringBuffer buffer = new HtmlStringBuffer();
             buffer.append("DataContext created with ");
-            if (sessionScope) {
-                buffer.append("session scope");
-            } else {
-                buffer.append("request scope");
-            }
+            buffer.append("request scope");
             if (sharedCache != null) {
                 buffer.append(", and shared cache ");
                 buffer.append(sharedCache);

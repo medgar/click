@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.cayenne.BaseContext;
 import org.apache.cayenne.DataRow;
 import org.apache.cayenne.access.DataContext;
 import org.apache.cayenne.query.NamedQuery;
@@ -451,7 +452,7 @@ public class QuerySelect extends Select {
             return;
         }
 
-        DataContext dataContext = DataContext.getThreadDataContext();
+        DataContext dataContext = (DataContext) BaseContext.getThreadObjectContext();
 
         List list = Collections.emptyList();
 

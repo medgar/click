@@ -76,11 +76,10 @@ public class TableFooter extends BorderPage {
         column.setWidth("40px;");
         table.addColumn(column);
 
-        column = new Column("holdings");
-        column.setFormat("${0,number,#,##0.00}");
-        column.setTextAlign("right");
-        column.setWidth("100px;");
-        table.addColumn(column);
+        table.addColumn(new Column("holdings"))
+        	.setFormat("${0,number,#,##0.00}")
+        	.setTextAlign("right")
+        	.setWidth("100px;");
 
         table.setDataProvider(new DataProvider<Customer>() {
             public List<Customer> getData() {

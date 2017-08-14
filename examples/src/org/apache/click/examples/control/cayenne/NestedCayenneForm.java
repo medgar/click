@@ -77,8 +77,8 @@ public class NestedCayenneForm extends CayenneForm {
     public DataContext getDataContext() {
         // #1 Use DataContext associated with DataObject
         if (dataObject != null) {
-            if (dataObject.getDataContext() != null) {
-                return dataObject.getDataContext();
+            if (dataObject.getObjectContext() != null) {
+                return (DataContext) dataObject.getObjectContext();
             }
         }
         // #2 Use nestedDataContext
@@ -89,7 +89,7 @@ public class NestedCayenneForm extends CayenneForm {
         DataContext dc = super.getDataContext();
 
         // #3 Create a nested DataContext and cache the reference
-        return nestedDataContext = dc.createChildDataContext();
+        return nestedDataContext = (DataContext) dc.createChildContext();
     }
 
     /**
