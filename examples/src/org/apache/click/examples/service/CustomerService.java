@@ -70,7 +70,7 @@ public class CustomerService extends CayenneTemplate {
 
         SelectQuery query = new SelectQuery(Customer.class);
         if (property != null) {
-        	SortOrder sortOrder = (ascending) ? SortOrder.ASCENDING : SortOrder.DESCENDING;
+            SortOrder sortOrder = (ascending) ? SortOrder.ASCENDING : SortOrder.DESCENDING;
             query.addOrdering(new Ordering(property, sortOrder));
         }
 
@@ -214,7 +214,7 @@ public class CustomerService extends CayenneTemplate {
 
         SelectQuery query = new SelectQuery(Customer.class);
         if (StringUtils.isNotBlank(sortColumn)) {
-        	SortOrder sortOrder = (ascending) ? SortOrder.ASCENDING : SortOrder.DESCENDING;
+            SortOrder sortOrder = (ascending) ? SortOrder.ASCENDING : SortOrder.DESCENDING;
             query.addOrdering(new Ordering(sortColumn, sortOrder));
         }
         query.setFetchOffset(offset);
@@ -268,7 +268,7 @@ public class CustomerService extends CayenneTemplate {
 
         @SuppressWarnings("deprecation")
         protected Query createReplacementQuery(EntityResolver resolver) {
-        	ObjEntity objEntity = resolver.lookupObjEntity(objectClass);
+            ObjEntity objEntity = resolver.lookupObjEntity(objectClass);
             DbEntity entity = objEntity.getDbEntity();
 
             if (entity == null) {

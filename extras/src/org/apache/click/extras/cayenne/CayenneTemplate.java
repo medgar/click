@@ -140,7 +140,7 @@ public class CayenneTemplate {
      * @return the thread local DataContext
      */
     protected DataContext getDataContext() {
-    	return (DataContext) BaseContext.getThreadObjectContext();
+        return (DataContext) BaseContext.getThreadObjectContext();
     }
 
     /**

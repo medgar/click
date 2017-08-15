@@ -184,7 +184,7 @@ public class DataContextFilter implements Filter {
 
     /** The Click log service. */
     protected LogService logger;
-    
+
     protected CayenneRuntime runtime;
 
     // --------------------------------------------------------- Public Methods
@@ -206,20 +206,20 @@ public class DataContextFilter implements Filter {
         filterConfig = config;
 
         runtime = WebUtil.getCayenneRuntime(config.getServletContext());
-        
+
         if (runtime == null) {
-        	
-        	WebConfiguration configAdapter = new WebConfiguration(config);
+
+            WebConfiguration configAdapter = new WebConfiguration(config);
 
             String configurationLocation = configAdapter.getConfigurationLocation();
             Collection<Module> modules;
-			try {
-				modules = configAdapter.createModules(new WebModule());
-				runtime = new ServerRuntime(
-						configurationLocation,
-						modules.toArray(new Module[modules.size()]));
-			} catch (ServletException e) {
-			}
+            try {
+                modules = configAdapter.createModules(new WebModule());
+                runtime = new ServerRuntime(
+                        configurationLocation,
+                        modules.toArray(new Module[modules.size()]));
+            } catch (ServletException e) {
+            }
 
             WebUtil.setCayenneRuntime(config.getServletContext(), runtime);
         }
@@ -277,9 +277,9 @@ public class DataContextFilter implements Filter {
      * Destroy the DataContextFilter.
      */
     public void destroy() {
-    	if (runtime != null) {
-    		runtime.shutdown();
-    	}
+        if (runtime != null) {
+            runtime.shutdown();
+        }
         this.filterConfig = null;
     }
 
@@ -369,7 +369,7 @@ public class DataContextFilter implements Filter {
      * @return the DataContext object
      */
     protected DataContext getDataContext(HttpServletRequest request) {
-    	return createDataContext();
+        return createDataContext();
     }
 
     /**

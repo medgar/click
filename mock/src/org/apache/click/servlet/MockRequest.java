@@ -99,6 +99,9 @@ public class MockRequest implements HttpServletRequest {
     /** The request character encoding. */
     private String characterEncoding;
 
+    /** The request content type. */
+    private String contentType;
+
     /** The request servlet context. */
     private ServletContext servletContext;
 
@@ -152,6 +155,9 @@ public class MockRequest implements HttpServletRequest {
 
     /** The port number to which the request was sent, defaults to 8080. */
     private int serverPort = 8080;
+
+    /** The request URL. */
+    private String requestURL;
 
     /** A random number generator to create unique session id's. */
     private Random random = new Random();
@@ -396,17 +402,32 @@ public class MockRequest implements HttpServletRequest {
     }
 
     /**
+     * Set the request content type.
+     *
+     * @param contentType the request content type.
+     */
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    /**
      * If useMultiPartContentType set as true return the correct content-type.
+     * If the contentType property is defined then this value will be returned.
      *
      * @return The correct multipart content-type if useMultiPartContentType
      * is true. Else null.
      */
     public String getContentType() {
-        if (useMultiPartContentType) {
-            return FileUploadBase.MULTIPART_FORM_DATA + "; boundary=abcdefgABCDEFG";
-        }
+        if (contentType != null) {
+            return contentType;
 
-        return null;
+        } else {
+            if (useMultiPartContentType) {
+                return FileUploadBase.MULTIPART_FORM_DATA + "; boundary=abcdefgABCDEFG";
+            }
+
+            return null;
+        }
     }
 
     /**
@@ -915,32 +936,48 @@ public class MockRequest implements HttpServletRequest {
     }
 
     /**
+     * Provide a convenience method for setting the request URL.
+     *
+     * @param requestURL the request URL to set
+     */
+    public void setRequestURL(String requestURL) {
+        this.requestURL = requestURL;
+    }
+
+    /**
      * Returns (an attempt at) a reconstructed URL based on it's constituent
-     * parts.
+     * parts. If the requestURL property is set this value will be returned
+     * instead.
      *
      * @return a StringBuffer object containing the reconstructed URL
+     * @see javax.servlet.http.HttpServletRequest#getRequestURL()
      */
     public StringBuffer getRequestURL() {
-        StringBuffer buffer = new StringBuffer().append(getScheme());
-        buffer.append("://");
-        buffer.append(this.getServerName());
-        buffer.append(":");
-        buffer.append(this.getServerPort());
-        buffer.append(this.contextPath);
-        buffer.append(this.servletPath);
+        if (requestURL != null) {
+            return new StringBuffer(requestURL);
 
-        if (getPathInfo() != null) {
-            buffer.append(getPathInfo());
-        }
+        } else {
+            StringBuffer buffer = new StringBuffer().append(getScheme());
+            buffer.append("://");
+            buffer.append(this.getServerName());
+            buffer.append(":");
+            buffer.append(this.getServerPort());
+            buffer.append(this.contextPath);
+            buffer.append(this.servletPath);
 
-        if (!isPost()) {
-            final String query = getQueryString();
-            if (query != null) {
-                buffer.append('?');
-                buffer.append(query);
+            if (getPathInfo() != null) {
+                buffer.append(getPathInfo());
             }
+
+            if (!isPost()) {
+                final String query = getQueryString();
+                if (query != null) {
+                    buffer.append('?');
+                    buffer.append(query);
+                }
+            }
+            return buffer;
         }
-        return buffer;
     }
 
     /**

@@ -257,8 +257,8 @@ public abstract class FormTablePage extends BorderPage {
      */
     public void deleteDataObject(DataObject dataObject) {
         if (dataObject != null) {
-        	BaseContext.getThreadObjectContext().deleteObject(dataObject);
-        	BaseContext.getThreadObjectContext().commitChanges();
+            BaseContext.getThreadObjectContext().deleteObject(dataObject);
+            BaseContext.getThreadObjectContext().commitChanges();
         }
     }
 
